@@ -6,6 +6,7 @@ from django.db import models
 class Pojistenci(models.Model):
     jmeno = models.CharField(max_length=40, verbose_name="Jméno")
     prijmeni = models.CharField(max_length=40, verbose_name="Příjmení")
+    je_muz = models.BooleanField(default=True)
     narozeni = models.DateField(verbose_name="Datum narození")
     foto = models.CharField(
         max_length=60, verbose_name="Název obrázku")

@@ -28,7 +28,7 @@
             <label class="me-1">Muž</label>
             <input type="hidden" name="pohlavi" value="muz">
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="prepinacPohlavi" name="pohlavi" value="zena">
+                    <input class="form-check-input" type="checkbox" id="prepinacPohlavi" name="pohlavi" value="zena" {% if not pojistenec.je_muz %}checked{% endif %}>
                 </div>
             <label>Žena</label>
         </div>

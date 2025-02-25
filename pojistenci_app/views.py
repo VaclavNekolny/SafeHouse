@@ -25,11 +25,13 @@ def pridat_pojistence(request):
 
         if pohlavi == "muz":
             foto = str(random.randint(1, 15))+".png"
+            je_muz = True
         else:
             foto = str(random.randint(50, 65))+".png"
+            je_muz = False
 
         novy_pojistenec = Pojistenci(jmeno=jmeno, prijmeni=prijmeni,
-                                     narozeni=narozeni, foto=foto)
+                                     narozeni=narozeni, foto=foto, je_muz=je_muz)
         novy_pojistenec.save()
 
         message = f"Pojištěnec {jmeno} {prijmeni} přidán do databáze"
@@ -74,12 +76,16 @@ def editovat_pojistence(request, edit_id):
 
         if pohlavi == "muz":
             foto = str(random.randint(1, 15))+".png"
+            je_muz = True
         else:
             foto = str(random.randint(50, 65))+".png"
+            je_muz = False
+
         pojistenec_k_editaci.jmeno = jmeno
         pojistenec_k_editaci.prijmeni = prijmeni
         pojistenec_k_editaci.narozeni = narozeni
         pojistenec_k_editaci.foto = foto
+        pojistenec_k_editaci.je_muz = je_muz
         pojistenec_k_editaci.save()
 
         message = f"Pojištěnec {jmeno} {prijmeni} editován"
