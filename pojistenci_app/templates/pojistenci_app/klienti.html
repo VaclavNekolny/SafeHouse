@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Klienti
+{% endblock title %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href={% static "pojistenci_app/klienti.css" %}>
+{% endblock styles %}
+
+
+
+
+{% block content %}
+    <div class="container-md">
+        <h1 class="text-center pt-4 bg-light mb-0">SPRÁVA KLIENTŮ</h1>
+        <div class="bg-light p-5 mb-5 d-flex gap-3 justify-content-center rounded-bottom">
+            <a class="btn btn-primary btn-lg" href={% url "klienti" %}>Všichni pojištěnci</a>
+            <a class="btn btn-success btn-lg" href={% url "pridat_pojistence" %}>Přidat pojištěnce</a>
+            <a class="btn btn-danger btn-lg" href={% url "vymazat_pojistence" %}>Vymazat pojištěnce</a>
+        </div>
+        {% if pridat or editovat or vymazat %}
+            {% block form %}
+            {% endblock form %}
+        {% else %}
+        <h3 class="mb-4">Seznam všech pojištěných klientů</h3>
+        <table class="table table-hover" id="vsichni_klienti">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Foto</th>
+                <th scope="col">Jméno a přímení</th>
+                <th scope="col">Narození</th>
+                <th scope="col">Registrace</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for klient in klienti %}
+            <tr style="vertical-align: middle;">
+                <th scope="row">{{ klient.id }}</th>
+                <td><img src={% static "/pojistenci_app/pictures/"|add:klient.foto %} width="80"></td>
+                <td>{{ klient.jmeno }} {{ klient.prijmeni }}</td>
+                <td>{{ klient.narozeni }}</td>
+                <td>{{ klient.datum_registrace }}</td>
+                <td>
+                    <a class="btn btn-dark" href={% url "editovat_pojistence" klient.id %}>editovat</a>
+                    <a class="btn btn-danger" href={% url "vymazat_pojistence_id" klient.id %}>smazat</a>
+                <td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+{% endblock content %}

@@ -1,0 +1,25 @@
+{% extends "pojistenci_app/klienti.html" %}
+
+
+
+{% block form %}
+    {% if message %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}      
+    </div>
+    {% endif %}
+    <h3 class="mb-5">Vymazat pojištěnce</h3>
+    <form action="vymazat" method="post">
+        {% csrf_token %}
+            <div class="input-group">
+                <select class="custom-select px-3 py-2 rounded-start" id="pojistenci" name="pojistenci">
+                    {% for pojistenec in pojistenci %}
+                        <option value="{{ pojistenec.id }}">
+                            {{ pojistenec.jmeno }} {{ pojistenec.prijmeni }} - 
+                            {{ pojistenec.narozeni.month }} / {{ pojistenec.narozeni.year }}</option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-outline-danger btn-lg" type="submit">Vymazaž</button>
+            </div>      
+    </form>
+{% endblock form %}

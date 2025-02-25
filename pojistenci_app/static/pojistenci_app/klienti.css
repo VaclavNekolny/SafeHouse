@@ -1,0 +1,10 @@
+
+/* TABULKA S VÝPISEM POJIŠTĚNÝCH KLIENTŮ */
+
+#vsichni_klienti tr{
+    height: 100px;
+}
+
+#vsichni_klienti tr td, #vsichni_klienti tr th{
+    font-size : 1.2rem;
+}

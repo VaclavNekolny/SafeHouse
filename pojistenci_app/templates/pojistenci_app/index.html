@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Pojištěnci App{% endblock title %}
+
+{% block styles %}
+<link rel="stylesheet" href="static/pojistenci_app/index.css">
+{% endblock styles %}
+
+{% block content %}
+<h1>Tento nadpis by měl být červený</h1>
+<p class="lead">Toto je index</p>
+<ul>
+    {% for pojistenec in pojistenci %}
+    <li>{{ pojistenec }}</li>
+    {% endfor %}
+</ul>
+{% endblock content %}
