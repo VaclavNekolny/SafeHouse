@@ -1,0 +1,33 @@
+{% extends "pojistenci_app/pojisteni.html" %}
+
+
+
+{% block form %}
+    {% if message %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}      
+    </div>
+    {% endif %}
+    <h3 class="mb-5">Editovat pojištění</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="nazev" class="form-label">Název produktu</label>
+            <input type="text" class="form-control" id="nazev" name="nazev" value='{{ pojisteni.nazev }}' required>
+        </div>
+        <div class="mb-3">
+            <label for="predmet_kryti" class="form-label">Předmět krytí</label>
+            <input type="text" class="form-control" id="predmet_kryti" name="predmet_kryti" value='{{ pojisteni.predmet_kryti }}' required>
+        </div>
+        <div class="mb-3">
+            <label for="castka" class="form-label">Částka krytí</label>
+            <input type="number" class="form-control" id="castka" name="castka" value={{ pojisteni.zakladni_castka }} required>
+        </div>
+        <div class="mb-3">
+            <label for="cena" class="form-label">Cena pojištění</label>
+            <input type="number" class="form-control" id="cena" name="cena" value={{ pojisteni.zakladni_cena }} required>
+        </div>
+        <input type="hidden" name="id" value={{ pojisteni.id }}>
+        <button type="submit" class="btn btn-success">Editovat pojištění</button>
+    </form>
+{% endblock form %}

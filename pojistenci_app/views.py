@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from pojistenci_app.models import Pojistenci
+from pojistenci_app.models import Pojistenci, Produkty
 import random
 
 # Create your views here.
@@ -14,6 +14,11 @@ def index(request):
 def klienti(request):
     vsichni_klienti = Pojistenci.objects.all()
     return render(request, 'pojistenci_app/klienti.html', {'klienti': vsichni_klienti})
+
+
+def detail_pojistence(request, id_klienta):
+    pojistenec = Pojistenci.objects.get(id=id_klienta)
+    return render(request, 'pojistenci_app/detail_pojistence.html', {'pojistenec': pojistenec})
 
 
 def pridat_pojistence(request):
@@ -93,3 +98,57 @@ def editovat_pojistence(request, edit_id):
 
     pojistenec_k_editaci = Pojistenci.objects.get(id=edit_id)
     return render(request, 'pojistenci_app/editovat_pojistence.html', {'editovat': True, 'pojistenec': pojistenec_k_editaci})
+
+
+def pojisteni(request):
+    pojistovaci_produkty = Produkty.objects.all()
+    return render(request, 'pojistenci_app/pojisteni.html', {'produkty': pojistovaci_produkty})
+
+
+def pridat_pojisteni(request):
+    if request.method == "POST":
+        nazev = request.POST["nazev"]
+        predmet_kryti = request.POST["predmet_kryti"]
+        castka = request.POST["castka"]
+        cena = request.POST["cena"]
+        pomer = round(int(castka)/int(cena), 2)
+
+        nove_pojisteni = Produkty(nazev=nazev, predmet_kryti=predmet_kryti,
+                                  zakladni_castka=castka, zakladni_cena=cena, pomer=pomer)
+        nove_pojisteni.save()
+
+        message = f"Pojištění {nazev} přidáno do databáze"
+        return render(request, 'pojistenci_app/pridat_pojisteni.html', {'message': message, 'pridat': True})
+
+    return render(request, 'pojistenci_app/pridat_pojisteni.html', {'pridat': True})
+
+
+def editovat_pojisteni(request, edit_id):
+
+    if request.method == "POST":
+        id = request.POST["id"]
+        pojisteni_k_editaci = Produkty.objects.get(id=id)
+        nazev = request.POST["nazev"]
+        predmet_kryti = request.POST["predmet_kryti"]
+        castka = request.POST["castka"]
+        cena = request.POST["cena"]
+        pomer = round(int(castka)/int(cena), 2)
+
+        pojisteni_k_editaci.nazev = nazev
+        pojisteni_k_editaci.predmet_kryti = predmet_kryti
+        pojisteni_k_editaci.zakladni_castka = castka
+        pojisteni_k_editaci.zakladni_cena = cena
+        pojisteni_k_editaci.pomer = pomer
+        pojisteni_k_editaci.save()
+
+        message = f"Pojištění '{nazev}' editováno"
+        return render(request, 'pojistenci_app/editovat_pojisteni.html', {'message': message, 'editovat': True})
+
+    pojisteni_k_editaci = Produkty.objects.get(id=edit_id)
+    return render(request, 'pojistenci_app/editovat_pojisteni.html', {'editovat': True, 'pojisteni': pojisteni_k_editaci})
+
+
+def vymazat_pojisteni(request, del_produkt_id):
+    pojisteni_k_vymazani = Produkty.objects.filter(id=del_produkt_id)
+    pojisteni_k_vymazani.delete()
+    return redirect('pojisteni')
