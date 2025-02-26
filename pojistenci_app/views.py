@@ -152,3 +152,7 @@ def vymazat_pojisteni(request, del_produkt_id):
     pojisteni_k_vymazani = Produkty.objects.filter(id=del_produkt_id)
     pojisteni_k_vymazani.delete()
     return redirect('pojisteni')
+
+
+def nova_smlouva(request, klient_id):
+    return render(request, 'pojistenci_app/nova_smlouva.html', {'klient_id': klient_id})

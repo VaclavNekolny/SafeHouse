@@ -39,7 +39,8 @@ Klienti
             </thead>
             <tbody>
             {% for klient in klienti %}
-            <tr style="vertical-align: middle;">
+            <tr onclick="window.location.href='{% url "detail_pojistence" klient.id %}';"
+                style="cursor:pointer; vertical-align: middle;">
                 <th scope="row">{{ klient.id }}</th>
                 <td><img src={% static "/pojistenci_app/pictures/"|add:klient.foto %} width="80"></td>
                 <td>{{ klient.jmeno }} {{ klient.prijmeni }}</td>

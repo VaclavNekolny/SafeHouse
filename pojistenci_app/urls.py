@@ -24,5 +24,7 @@ urlpatterns = [
          views.editovat_pojisteni, name="editovat_pojisteni"),
     path('pojisteni/vymazat/<int:del_produkt_id>',
          views.vymazat_pojisteni, name="vymazat_pojisteni"),
+    path('klienti/<int:klient_id>/nova_smlouva',
+         views.nova_smlouva, name="nova_smlouva"),
 
 ]

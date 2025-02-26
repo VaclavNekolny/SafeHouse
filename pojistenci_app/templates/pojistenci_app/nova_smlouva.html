@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Nová smlouva:
+{% endblock title %}
+
+
+{% block styles %}
+{% endblock styles %}
+
+
+
+
+{% block content %}
+    <div class="container-md">
+        <h1 class="text-center pt-4 bg-light mb-0">NOVÁ SMLOUVA</h1>
+        <p>Id klienta: {{ klient_id }}</p>
+
+        <a class="btn btn-success" href="#">Podepsat smlouvu</a>
+    </div>
+{% endblock content %}
