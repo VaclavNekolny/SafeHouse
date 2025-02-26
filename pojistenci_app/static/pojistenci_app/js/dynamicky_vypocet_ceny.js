@@ -1,17 +1,16 @@
 function dynamickyVypocet() {
   let castka = document.getElementById("castka").value;
-  let cena = document.getElementById("cena").value;
-  let pomer = document.getElementById("pomer");
+  let pomer = document.getElementById("pomer").value;
+  let cena = document.getElementById("cena");
 
-  if (castka !== "" && cena !== "") {
-    let vysledek = parseFloat(castka) / parseFloat(cena);
-    pomer.innerText = "Poměr: " + vysledek.toFixed(2);
+  if (castka !== "") {
+    let vysledek = parseFloat(castka) / parseFloat(pomer);
+    cena.innerText = "Cena/měs.: " + vysledek.toFixed(2) + "kč";
   } else {
-    pomer.innerText = "";
+    cena.innerText = "";
   }
 }
 
 document.getElementById("castka").addEventListener("input", dynamickyVypocet);
-document.getElementById("cena").addEventListener("input", dynamickyVypocet);
 
 document.addEventListener("DOMContentLoaded", dynamickyVypocet);

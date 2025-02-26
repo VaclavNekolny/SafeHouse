@@ -47,8 +47,8 @@ Klienti
                 <td>{{ klient.narozeni }}</td>
                 <td>{{ klient.datum_registrace }}</td>
                 <td>
-                    <a class="btn btn-dark" href={% url "editovat_pojistence" klient.id %}>editovat</a>
-                    <a class="btn btn-danger" href={% url "vymazat_pojistence_id" klient.id %}>smazat</a>
+                    <a class="btn btn-dark btn-sm" href={% url "editovat_pojistence" klient.id %}>editovat</a>
+                    <a class="btn btn-danger btn-sm" href={% url "vymazat_pojistence_id" klient.id %}>smazat</a>
                 <td>
             </tr>
             {% endfor %}

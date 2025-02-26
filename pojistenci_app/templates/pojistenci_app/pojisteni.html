@@ -44,8 +44,8 @@ Pojištění
                 <td>{{ produkt.zakladni_cena }}</td>
                 <td>{{ produkt.pomer }}</td>
                 <td>
-                    <a class="btn btn-info" href={% url "editovat_pojisteni" produkt.id %}>editovat</a>
-                    <a class="btn btn-danger" href={% url "vymazat_pojisteni" produkt.id %}>smazat</a>
+                    <a class="btn btn-dark btn-sm" href={% url "editovat_pojisteni" produkt.id %}>editovat</a>
+                    <a class="btn btn-danger btn-sm" href={% url "vymazat_pojisteni" produkt.id %}>smazat</a>
                 </td>
             </tr>
             {% endfor %}

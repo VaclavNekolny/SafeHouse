@@ -1,4 +1,5 @@
 {% extends "pojistenci_app/detail_pojistence.html" %}
+{% load static %}
 
 {% block content_bottom %}
 <h2>Název</h2>
@@ -12,9 +13,15 @@
     <input type="hidden" name="pojistenec_id" value={{ pojistenec.id }}>
     <div class="mb-3">
         <label for="castka_kryti" class="form-label">Základní částka</label>
-        <input type="number" class="form-control" id="castka_kryti" name="castka_kryti" value={{ produkt.zakladni_castka }} required>
+        <input type="number" class="form-control" id="castka" name="castka_kryti" value={{ produkt.zakladni_castka }} required>
+        <input type="hidden" id ="pomer" name="pomer" value={{ produkt.pomer }}>
     </div>
-    
+    <div>
+        <p id="cena"></p>
+    </div>
+
     <button type="submit" class="btn btn-success">Podepsat smlouvu</button>
 </form>
+
+<script src={% static "pojistenci_app/js/dynamicky_vypocet_ceny.js" %}></script>
 {% endblock content_bottom %}
