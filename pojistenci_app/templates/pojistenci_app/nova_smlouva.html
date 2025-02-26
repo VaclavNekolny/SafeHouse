@@ -1,22 +1,18 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "pojistenci_app/detail_pojistence.html" %}
 
-{% block title %}
-Nová smlouva:
-{% endblock title %}
-
-
-{% block styles %}
-{% endblock styles %}
-
-
-
-
-{% block content %}
+{% block content_bottom %}
     <div class="container-md">
-        <h1 class="text-center pt-4 bg-light mb-0">NOVÁ SMLOUVA</h1>
-        <p>Id klienta: {{ klient_id }}</p>
-
-        <a class="btn btn-success" href="#">Podepsat smlouvu</a>
+        <h1>NOVÁ SMLOUVA</h1>
+        <form action="" method="post" class="mb-3">
+            {% csrf_token %}
+                <div class="input-group">
+                    <select class="custom-select px-3 py-2 rounded-start" id="produkty_id" name="produkty_id">
+                        {% for produkt in produkty %}
+                            <option value={{ produkt.id }}>{{ produkt.nazev }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-outline-success" type="submit">Vyber produkt</button>
+                </div>
+        </form>
     </div>
-{% endblock content %}
+{% endblock content_bottom %}

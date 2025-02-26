@@ -1,0 +1,20 @@
+{% extends "pojistenci_app/detail_pojistence.html" %}
+
+{% block content_bottom %}
+<h2>Název</h2>
+<p class="lead">{{ produkt.nazev }}</p>
+<h2>Předmět krytí</h2>
+<p class="lead">{{ produkt.predmet_kryti }}</p>
+
+<form action="podepsat" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="produkt_id" value={{ produkt.id }}>
+    <input type="hidden" name="pojistenec_id" value={{ pojistenec.id }}>
+    <div class="mb-3">
+        <label for="castka_kryti" class="form-label">Základní částka</label>
+        <input type="number" class="form-control" id="castka_kryti" name="castka_kryti" value={{ produkt.zakladni_castka }} required>
+    </div>
+    
+    <button type="submit" class="btn btn-success">Podepsat smlouvu</button>
+</form>
+{% endblock content_bottom %}

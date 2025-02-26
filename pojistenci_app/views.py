@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from pojistenci_app.models import Pojistenci, Produkty
+from django.urls import reverse
+from pojistenci_app.models import Pojistenci, Produkty, Smlouvy
 import random
 
 # Create your views here.
@@ -18,7 +18,8 @@ def klienti(request):
 
 def detail_pojistence(request, id_klienta):
     pojistenec = Pojistenci.objects.get(id=id_klienta)
-    return render(request, 'pojistenci_app/detail_pojistence.html', {'pojistenec': pojistenec})
+    smlouvy_klienta = Smlouvy.objects.filter(pojistenec_id__id=id_klienta)
+    return render(request, 'pojistenci_app/smlouvy_pojistence.html', {'pojistenec': pojistenec, 'smlouvy': smlouvy_klienta})
 
 
 def pridat_pojistence(request):
@@ -155,4 +156,38 @@ def vymazat_pojisteni(request, del_produkt_id):
 
 
 def nova_smlouva(request, klient_id):
-    return render(request, 'pojistenci_app/nova_smlouva.html', {'klient_id': klient_id})
+    pojistenec = Pojistenci.objects.get(id=klient_id)
+    if request.method == "POST":
+        id_produktu = request.POST["produkty_id"]
+        produkt = Produkty.objects.get(id=id_produktu)
+        return render(request, 'pojistenci_app/vybrany_produkt.html', {'produkt': produkt, 'pojistenec': pojistenec})
+
+    produkty = Produkty.objects.all()
+    return render(request, 'pojistenci_app/nova_smlouva.html', {'produkty': produkty,
+                                                                'pojistenec': pojistenec})
+
+
+def podepsat(request, klient_id):
+
+    produkt_id = request.POST["produkt_id"]
+    pojistenec_id = request.POST["pojistenec_id"]
+    castka_kryti = request.POST["castka_kryti"]
+
+    produkt = Produkty.objects.get(id=produkt_id)
+
+    cena_pojisteni = round(int(castka_kryti) / produkt.pomer)
+
+    pojistenec = Pojistenci.objects.get(id=pojistenec_id)
+
+    nova_smlouva = Smlouvy(pojistenec_id=pojistenec, produkt_id=produkt,
+                           castka_kryti=castka_kryti, cena=cena_pojisteni)
+    nova_smlouva.save()
+
+    return redirect('detail_pojistence', klient_id)
+
+
+def vymazat_smlouvu(request, klient_id, delete_id):
+    smlouva_k_vymazani = Smlouvy.objects.get(id=delete_id)
+    smlouva_k_vymazani.delete()
+
+    return redirect(reverse('detail_pojistence', kwargs={'id_klienta': klient_id}))

@@ -43,7 +43,7 @@ class Smlouvy(models.Model):
     produkt_id = models.ForeignKey(Produkty, on_delete=models.CASCADE)
     castka_kryti = models.IntegerField(verbose_name="Částka krytí")
     cena = models.FloatField(verbose_name="Cena")
-    datum = models.DateField()
+    datum = models.DateField(auto_now=True)
 
     class Meta:
         verbose_name_plural = "Smlouvy"

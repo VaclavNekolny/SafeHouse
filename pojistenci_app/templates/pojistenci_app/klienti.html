@@ -29,7 +29,7 @@ Klienti
         <table class="table table-hover" id="vsichni_klienti">
             <thead>
             <tr>
-                <th scope="col">#</th>
+                <td scope="col">#</td>
                 <th scope="col">Foto</th>
                 <th scope="col">Jméno a přímení</th>
                 <th scope="col">Narození</th>
@@ -41,7 +41,7 @@ Klienti
             {% for klient in klienti %}
             <tr onclick="window.location.href='{% url "detail_pojistence" klient.id %}';"
                 style="cursor:pointer; vertical-align: middle;">
-                <th scope="row">{{ klient.id }}</th>
+                <td scope="row">{{ klient.id }}</td>
                 <td><img src={% static "/pojistenci_app/pictures/"|add:klient.foto %} width="80"></td>
                 <td>{{ klient.jmeno }} {{ klient.prijmeni }}</td>
                 <td>{{ klient.narozeni }}</td>

@@ -1,0 +1,36 @@
+{% extends "pojistenci_app/detail_pojistence.html" %}
+
+{% block content_bottom %}
+{% comment %} smlouvy,  pojistenec {% endcomment %}
+<h3 class="mb-4">Všechny smlouvy pojištěnce</h3>
+        <table class="table table-hover" id="smlouvy_pojistence">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Název produktu</th>
+                <th scope="col">Předmět krytí</th>
+                <th scope="col">Částka krytí</th>
+                <th scope="col">Cena/měs.</th>
+                <th scope="col">Datum podpisu<th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for smlouva in smlouvy %}
+            <tr style="vertical-align: middle;">
+                <th scope="row">{{ smlouva.id }}</th>
+                <td>{{ smlouva.produkt_id.nazev }}</td>
+                <td>{{ smlouva.produkt_id.predmet_kryti }}</td>
+                <td>{{ smlouva.castka_kryti }}</td>
+                <td>{{ smlouva.cena }}</td>
+                <td>{{ smlouva.datum }}</td>
+                <td>
+                    <a class="btn btn-danger" href={% url 'vymazat_smlouvu' pojistenec.id smlouva.id %}>smazat</a>
+                <td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+{% endblock content_bottom %}
+

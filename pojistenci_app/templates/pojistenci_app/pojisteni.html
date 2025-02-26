@@ -25,7 +25,7 @@ Pojištění
         <table class="table table-hover" id="vsechny_produkty">
             <thead>
             <tr>
-                <th scope="col">#</th>
+                <td scope="col">#</td>
                 <th scope="col">Název</th>
                 <th scope="col">Předmět krytí</th>
                 <th scope="col">Částka krytí (kč)</th>
@@ -37,8 +37,8 @@ Pojištění
             <tbody>
             {% for produkt in produkty %}
             <tr style="vertical-align: middle;">
-                <th scope="row">{{ produkt.id }}</th>
-                <td>{{ produkt.nazev }}</td>
+                <td scope="row">{{ produkt.id }}</td>
+                <th>{{ produkt.nazev }}</th>
                 <td>{{ produkt.predmet_kryti }}</td>
                 <td>{{ produkt.zakladni_castka }}</td>
                 <td>{{ produkt.zakladni_cena }}</td>

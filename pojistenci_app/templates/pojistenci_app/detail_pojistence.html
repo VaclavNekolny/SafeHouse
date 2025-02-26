@@ -25,12 +25,18 @@ Pojištěnec: {{ pojistenec.jmeno }} {{ pojistenec.prijmeni }}
                     <h4 class="mb-3">{{ pojistenec.jmeno }} {{ pojistenec.prijmeni }} - {% if pojistenec.je_muz %}MUŽ{% else %}ŽENA{% endif %}</h4>
                     <p class="lead">Datum narození: {{ pojistenec.narozeni }}</p>
                     <p class="lead">Datum registrace: {{ pojistenec.datum_registrace }}</p>
-                    <a class="btn btn-success btn-sm mt-2" href={% url "nova_smlouva" pojistenec.id %}>Podepsat novou smlouvu</a>
+                    <div class="d-flex gap-3">
+                        <a class="btn btn-primary btn-sm mt-2" href={% url "detail_pojistence" pojistenec.id %}>Všechny smlouvy</a>
+                        <a class="btn btn-success btn-sm mt-2" href={% url "nova_smlouva" pojistenec.id %}>Nová smlouva</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    
     <div class="container-md">
-        tabulka s pojištěním pojištěnce
+        {% block content_bottom %}
+        
+        {% endblock content_bottom %}
     </div>
 {% endblock content %}

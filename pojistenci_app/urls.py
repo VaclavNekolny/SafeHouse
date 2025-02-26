@@ -26,5 +26,10 @@ urlpatterns = [
          views.vymazat_pojisteni, name="vymazat_pojisteni"),
     path('klienti/<int:klient_id>/nova_smlouva',
          views.nova_smlouva, name="nova_smlouva"),
+    path('klienti/<int:klient_id>/podepsat',
+         views.podepsat, name="podepsat"),
+    path('klienti/<int:klient_id>/vymazat/<int:delete_id>',
+         views.vymazat_smlouvu, name="vymazat_smlouvu"),
+
 
 ]

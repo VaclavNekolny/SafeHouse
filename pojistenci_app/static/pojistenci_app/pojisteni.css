@@ -1,0 +1,7 @@
+#vsechny_produkty tr td, #vsechny_produkty tr th{
+    font-size : 1.2rem;
+}
+
+#vsechny_produkty tr {
+    height: 75px;
+}

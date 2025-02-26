@@ -1,5 +1,5 @@
 {% extends "pojistenci_app/pojisteni.html" %}
-
+{% load static %}
 
 
 {% block form %}
@@ -27,7 +27,11 @@
             <label for="cena" class="form-label">Cena pojištění</label>
             <input type="number" class="form-control" id="cena" name="cena" required>
         </div>
-        
+        <div>
+        <p id="pomer"></p>
+        </div>
         <button type="submit" class="btn btn-success">Přidat pojištění</button>
     </form>
+
+    <script src={% static "pojistenci_app/js/dynamicky_vypocet_ceny.js" %}></script>
 {% endblock form %}
