@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-light">
-  <a class="navbar-brand ms-5" href="#">ADMIN</a>
+  <div class="container-md px-5">
+  <a class="navbar-brand" href="#">ADMIN</a>
   <button
     class="navbar-toggler"
     type="button"
@@ -12,38 +13,41 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href={% url 'pojisteni' %}
-          >Pojištění</a
-        >
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href={% url 'klienti' %}>Klienti</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href={% url 'smlouvy' %}>Smlouvy</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href={% url 'historie' %}>Historie</a>
-      </li>
-    </ul>
+      <div class="d-flex flex-row justify-content-between align-items-center w-100">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href={% url 'pojisteni' %}
+            >Pojištění</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href={% url 'klienti' %}>Klienti</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href={% url 'smlouvy' %}>Smlouvy</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href={% url 'historie' %}>Historie</a>
+        </li>
+      </ul>
 
-    <div class="nav-item dropdown m-auto">
-      <a
-        class="nav-link dropdown-toggle"
-        href="#"
-        id="navbarDropdownMenuLink"
-        data-bs-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-        Administrátor: Václav
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="#">Profil</a>
-        <a class="dropdown-item" href="#">Odhlásit</a>
+      <div class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdownMenuLink"
+          data-bs-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Administrátor: Václav
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Profil</a>
+          <a class="dropdown-item" href="#">Odhlásit</a>
+        </div>
       </div>
     </div>
   </div>
+</div>
 </nav>

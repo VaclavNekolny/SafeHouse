@@ -39,13 +39,13 @@
         <tbody>
         {% for zaznam in historie %}
         <tr style="vertical-align: middle;">
-            <td scope="row">{{ zaznam.pojistenec_id|default:"" }}</td>
-            <td>{{ zaznam.produkt_id|default:"" }}</td>
-            <td>{{ zaznam.smlouva_id|default:"" }}</td>
-            <td>{{ zaznam.pojistenec|default:"" }}</td>
-            <td>{{ zaznam.produkt|default:"" }}</td>
-            <td>{{ zaznam.akce|default:"" }}</td>
-            <td>{{ zaznam.detail_akce|default:"" }}</td>
+            <td scope="row">{{ zaznam.pojistenec_id|default:"-" }}</td>
+            <td>{{ zaznam.produkt_id|default:"-" }}</td>
+            <td>{{ zaznam.smlouva_id|default:"-" }}</td>
+            <td>{{ zaznam.pojistenec|default:"--" }}</td>
+            <td>{{ zaznam.produkt|default:"--" }}</td>
+            <td>{{ zaznam.akce|default:"--" }}</td>
+            <td>{{ zaznam.detail_akce|default:"--" }}</td>
             <td>{{ zaznam.datum_cas }}</td>
         </tr>
         {% endfor %}
