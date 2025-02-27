@@ -194,3 +194,9 @@ def vymazat_smlouvu(request, klient_id, delete_id):
     smlouva_k_vymazani.delete()
 
     return redirect(reverse('detail_pojistence', kwargs={'id_klienta': klient_id}))
+
+
+def smlouvy(request):
+    smlouvy = Smlouvy.objects.all()
+    inkaso_celkem = smlouvy.aggregate(Sum('cena'))
+    return render(request, 'pojistenci_app/smlouvy.html', {'smlouvy': smlouvy, 'inkaso_celkem': inkaso_celkem})

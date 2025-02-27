@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% endblock title %}
+
+
+{% block styles %}
+{% endblock styles %}
+
+{% comment %} smlouvy,  inkaso_celkem {% endcomment %}
+{% block content %}
+<div class="container-md">
+    <h1 class="text-center pt-4 bg-light mb-0">SMLOUVY</h1>
+    <div class="bg-light p-3 mb-4 d-flex gap-3 justify-content-center rounded-bottom">
+    <p class="lead">Měsíční inkaso: <b>{{ inkaso_celkem.cena__sum }} kč</b></p>
+    </div>
+
+    <h3 class="mb-5">Všechny podepsané smlouvy</h3>
+    <table class="table table-hover" id="vsechny_smlouvy">
+        <thead>
+        <tr>
+            <th scope="col" class="small">č.smlouvy</th>
+            <th scope="col">Příjmení a jméno</th>
+            <th scope="col">Produkt</th>
+            <th scope="col">Částka krytí (kč)</th>
+            <th scope="col">Cena (kč/měs.)</th>
+            <th scope="col">Datum podpisu</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for smlouva in smlouvy %}
+        <tr style="vertical-align: middle;">
+            <td scope="row">{{ smlouva.id }}</td>
+            <td><b>{{ smlouva.pojistenec_id.prijmeni }} 
+                {{ smlouva.pojistenec_id.jmeno }}</b> ({{ smlouva.pojistenec_id.id }})</td>
+            <td>{{ smlouva.produkt_id.nazev }}</td>
+            <td>{{ smlouva.castka_kryti }}</td>
+            <td>{{ smlouva.cena }}</td>
+            <td>{{ smlouva.datum }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

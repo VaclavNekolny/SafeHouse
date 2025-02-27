@@ -30,6 +30,6 @@ urlpatterns = [
          views.podepsat, name="podepsat"),
     path('klienti/<int:klient_id>/vymazat/<int:delete_id>',
          views.vymazat_smlouvu, name="vymazat_smlouvu"),
-
-
+    path('smlouvy',
+         views.smlouvy, name="smlouvy"),
 ]
