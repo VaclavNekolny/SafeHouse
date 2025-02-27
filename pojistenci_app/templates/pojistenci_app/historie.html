@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     Historie
@@ -6,6 +7,7 @@
 
 
 {% block styles %}
+    <link rel="stylesheet" href={% static "pojistenci_app/historie.css" %}>
 {% endblock styles %}
 
 {% block content %}
@@ -32,22 +34,29 @@
             <th scope="col">Pojištěnec</th>
             <th scope="col">Produkt</th>
             <th scope="col">Akce</th>
-            <th scope="col">Detail</th> {% comment %} částka, cena, krytí... {% endcomment %}
+            <th scope="col">Detail</th> {% comment %} částka, cena, krytí...{% endcomment %}
             <th scope="col">Datum akce</th>
         </tr>
         </thead>
         <tbody>
         {% for zaznam in historie %}
-        <tr style="vertical-align: middle;">
-            <td scope="row">{{ zaznam.pojistenec_id|default:"-" }}</td>
-            <td>{{ zaznam.produkt_id|default:"-" }}</td>
-            <td>{{ zaznam.smlouva_id|default:"-" }}</td>
-            <td>{{ zaznam.pojistenec|default:"--" }}</td>
-            <td>{{ zaznam.produkt|default:"--" }}</td>
-            <td>{{ zaznam.akce|default:"--" }}</td>
-            <td>{{ zaznam.detail_akce|default:"--" }}</td>
-            <td>{{ zaznam.datum_cas }}</td>
-        </tr>
+            <tr
+            {% if zaznam.akce == "Vytvoření" %} class="vytvoreni"
+            {% elif zaznam.akce == "Editace" %} class="editace"
+            {% elif zaznam.akce == "Smazání" %} class="smazani"
+            {% elif zaznam.akce == "Podpis" %} class="podpis"
+            {% elif zaznam.akce == "Výpověď" %} class="vypoved"
+            {% endif %}
+                style="vertical-align: middle;">
+                    <td scope="row">{{ zaznam.pojistenec_id|default:"-" }}</td>
+                    <td>{{ zaznam.produkt_id|default:"-" }}</td>
+                    <td>{{ zaznam.smlouva_id|default:"-" }}</td>
+                    <td>{{ zaznam.pojistenec|default:"--" }}</td>
+                    <td>{{ zaznam.produkt|default:"--" }}</td>
+                    <td>{{ zaznam.akce|default:"--" }}</td>
+                    <td>{{ zaznam.detail_akce|default:"--" }}</td>
+                    <td>{{ zaznam.datum_cas }}</td>
+                </tr>
         {% endfor %}
         </tbody>
     </table>

@@ -59,5 +59,8 @@ class Historie(models.Model):
     detail_akce = models.CharField(max_length=200, null=True)
     datum_cas = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"Akce: {self.akce}, {self.detail_akce}"
+
     class Meta:
         verbose_name_plural = "Historie událostí"

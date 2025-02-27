@@ -1,0 +1,16 @@
+.vytvoreni td {
+    background-color: #b5e6bb;
+}
+.editace td {
+    background-color: #cce0fd;
+}
+.smazani td {
+    background-color: #ffcaca;
+}
+.podpis td {
+    background-color: #edf1a8;
+}
+.vypoved td {
+    background-color: #f8e1c6;
+}
+
