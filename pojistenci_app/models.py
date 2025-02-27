@@ -49,14 +49,15 @@ class Smlouvy(models.Model):
         verbose_name_plural = "Smlouvy"
 
 
-class SmluvniUdalosti(models.Model):
-    jmeno_pojistence = models.CharField(max_length=40)
-    nazev_pojisteni = models.CharField(max_length=40)
-    je_vznik = models.BooleanField(
-        "Vznik smlouvy (TRUE), Zánik smlouva (FALSE)")
-    castka_kryti = models.IntegerField(verbose_name="Částka krytí")
-    cena = models.FloatField(verbose_name="Cena")
-    datum = models.DateField()
+class Historie(models.Model):
+    pojistenec_id = models.IntegerField(null=True)
+    produkt_id = models.IntegerField(null=True)
+    smlouva_id = models.IntegerField(null=True)
+    pojistenec = models.CharField(max_length=40, null=True)
+    produkt = models.CharField(max_length=40, null=True)
+    akce = models.CharField(max_length=10, null=True)
+    detail_akce = models.CharField(max_length=200, null=True)
+    datum_cas = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name_plural = "Smluvní události"
+        verbose_name_plural = "Historie událostí"

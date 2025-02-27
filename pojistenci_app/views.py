@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from pojistenci_app.models import Pojistenci, Produkty, Smlouvy
+from pojistenci_app.models import Pojistenci, Produkty, Smlouvy, Historie
 from django.db.models import Sum
 import random
 
@@ -39,9 +39,18 @@ def pridat_pojistence(request):
             foto = str(random.randint(50, 65))+".png"
             je_muz = False
 
+        # Uložení do databáze
         novy_pojistenec = Pojistenci(jmeno=jmeno, prijmeni=prijmeni,
                                      narozeni=narozeni, foto=foto, je_muz=je_muz)
         novy_pojistenec.save()
+
+        # Záznam do historie
+        id = novy_pojistenec.id
+        pojistenec = jmeno + " " + prijmeni
+        detail_akce = f"Přidání Pojištěnce {jmeno} {prijmeni}"
+        historie = Historie(pojistenec_id=id, pojistenec=pojistenec,
+                            akce='Vytvoření', detail_akce=detail_akce)
+        historie.save()
 
         message = f"Pojištěnec {jmeno} {prijmeni} přidán do databáze"
         return render(request, 'pojistenci_app/pridat_pojistence.html', {'message': message, 'pridat': True})
@@ -59,6 +68,15 @@ def vymazat_pojistence(request):
 
         jmeno = pojistenec_ke_smazani.jmeno
         prijmeni = pojistenec_ke_smazani.prijmeni
+
+        # Záznam do historie
+        id = pojistenec_ke_smazani.id
+        pojistenec = jmeno + " " + prijmeni
+        detail_akce = f"Smazání Pojištěnce {jmeno} {prijmeni}"
+        historie = Historie(pojistenec_id=id, pojistenec=pojistenec,
+                            akce='Smazání', detail_akce=detail_akce)
+        historie.save()
+
         pojistenec_ke_smazani.delete()
 
         message = f"Pojištěnec {jmeno} {prijmeni} byl smazán z databáze."
@@ -68,8 +86,19 @@ def vymazat_pojistence(request):
 
 
 def vymazat_pojistence_id(request, del_id):
-    pojistenec_k_vymazani = Pojistenci.objects.get(id=del_id)
-    pojistenec_k_vymazani.delete()
+    pojistenec_ke_smazani = Pojistenci.objects.get(id=del_id)
+
+    # Záznam do historie
+    jmeno = pojistenec_ke_smazani.jmeno
+    prijmeni = pojistenec_ke_smazani.prijmeni
+    id = pojistenec_ke_smazani.id
+    pojistenec = jmeno + " " + prijmeni
+    detail_akce = f"Smazání Pojištěnce {jmeno} {prijmeni}"
+    historie = Historie(pojistenec_id=id, pojistenec=pojistenec,
+                        akce='Smazání', detail_akce=detail_akce)
+    historie.save()
+
+    pojistenec_ke_smazani.delete()
     return redirect('klienti')
 
 
@@ -97,6 +126,14 @@ def editovat_pojistence(request, edit_id):
         pojistenec_k_editaci.je_muz = je_muz
         pojistenec_k_editaci.save()
 
+        # Záznam do historie
+        id = pojistenec_k_editaci.id
+        pojistenec = jmeno + " " + prijmeni
+        detail_akce = f"Editace pojištěnce {jmeno} {prijmeni}"
+        historie = Historie(pojistenec_id=id, pojistenec=pojistenec,
+                            akce='Editace', detail_akce=detail_akce)
+        historie.save()
+
         message = f"Pojištěnec {jmeno} {prijmeni} editován"
         return render(request, 'pojistenci_app/editovat_pojistence.html', {'message': message, 'editovat': True})
 
@@ -120,6 +157,14 @@ def pridat_pojisteni(request):
         nove_pojisteni = Produkty(nazev=nazev, predmet_kryti=predmet_kryti,
                                   zakladni_castka=castka, zakladni_cena=cena, pomer=pomer)
         nove_pojisteni.save()
+
+        # Záznam do historie
+        id = nove_pojisteni.id
+        pojisteni = nove_pojisteni.nazev
+        detail_akce = f"Přidání pojištění {pojisteni}"
+        historie = Historie(produkt_id=id, produkt=pojisteni,
+                            akce='Vytvoření', detail_akce=detail_akce)
+        historie.save()
 
         message = f"Pojištění {nazev} přidáno do databáze"
         return render(request, 'pojistenci_app/pridat_pojisteni.html', {'message': message, 'pridat': True})
@@ -145,6 +190,14 @@ def editovat_pojisteni(request, edit_id):
         pojisteni_k_editaci.pomer = pomer
         pojisteni_k_editaci.save()
 
+        # Záznam do historie
+        id = pojisteni_k_editaci.id
+        pojisteni = pojisteni_k_editaci.nazev
+        detail_akce = f"Editace pojištění {pojisteni}"
+        historie = Historie(produkt_id=id, produkt=pojisteni,
+                            akce='Editace', detail_akce=detail_akce)
+        historie.save()
+
         message = f"Pojištění '{nazev}' editováno"
         return render(request, 'pojistenci_app/editovat_pojisteni.html', {'message': message, 'editovat': True})
 
@@ -154,6 +207,15 @@ def editovat_pojisteni(request, edit_id):
 
 def vymazat_pojisteni(request, del_produkt_id):
     pojisteni_k_vymazani = Produkty.objects.filter(id=del_produkt_id)
+
+    # Záznam do historie
+    id = pojisteni_k_vymazani.id
+    pojisteni = pojisteni_k_vymazani.nazev
+    detail_akce = f"Vymazání pojištění {pojisteni}"
+    historie = Historie(produkt_id=id, produkt=pojisteni,
+                        akce='Smazání', detail_akce=detail_akce)
+    historie.save()
+
     pojisteni_k_vymazani.delete()
     return redirect('pojisteni')
 
@@ -164,7 +226,6 @@ def nova_smlouva(request, klient_id):
         id_produktu = request.POST["produkty_id"]
         produkt = Produkty.objects.get(id=id_produktu)
         return render(request, 'pojistenci_app/vybrany_produkt.html', {'produkt': produkt, 'pojistenec': pojistenec})
-
     produkty = Produkty.objects.all()
     return render(request, 'pojistenci_app/nova_smlouva.html', {'produkty': produkty,
                                                                 'pojistenec': pojistenec})
@@ -186,17 +247,52 @@ def podepsat(request, klient_id):
                            castka_kryti=castka_kryti, cena=cena_pojisteni)
     nova_smlouva.save()
 
+    # Záznam do historie
+    pojistenec_id = pojistenec.id
+    produkt_id = produkt.id
+    smlouva_id = nova_smlouva.id
+    pojistenec = pojistenec.prijmeni + " " + pojistenec.jmeno
+    produkt = produkt.nazev
+    detail_akce = f"{pojistenec} podepsal smlouvu {produkt}"
+    historie = Historie(pojistenec_id=pojistenec_id, produkt_id=produkt_id,
+                        smlouva_id=smlouva_id, pojistenec=pojistenec, produkt=produkt,
+                        akce='Podpis', detail_akce=detail_akce)
+    historie.save()
+
     return redirect('detail_pojistence', klient_id)
 
 
 def vymazat_smlouvu(request, klient_id, delete_id):
     smlouva_k_vymazani = Smlouvy.objects.get(id=delete_id)
+
+    # Záznam do historie
+    pojistenec_id = smlouva_k_vymazani.pojistenec_id.id
+    produkt_id = smlouva_k_vymazani.produkt_id.id
+    smlouva_id = smlouva_k_vymazani.id
+    pojistenec = smlouva_k_vymazani.pojistenec_id.prijmeni + \
+        " " + smlouva_k_vymazani.pojistenec_id.jmeno
+    produkt = smlouva_k_vymazani.produkt_id.nazev
+    detail_akce = f"{pojistenec} vypověděl smlouvu {produkt}"
+    historie = Historie(pojistenec_id=pojistenec_id, produkt_id=produkt_id,
+                        smlouva_id=smlouva_id, pojistenec=pojistenec, produkt=produkt,
+                        akce='Výpověď', detail_akce=detail_akce)
+    historie.save()
+
     smlouva_k_vymazani.delete()
 
     return redirect(reverse('detail_pojistence', kwargs={'id_klienta': klient_id}))
 
 
 def smlouvy(request):
-    smlouvy = Smlouvy.objects.all()
+    sort_param = request.GET.get("sort", "id")
+
+    smlouvy = Smlouvy.objects.all().order_by(sort_param)
     inkaso_celkem = smlouvy.aggregate(Sum('cena'))
-    return render(request, 'pojistenci_app/smlouvy.html', {'smlouvy': smlouvy, 'inkaso_celkem': inkaso_celkem})
+    return render(request, 'pojistenci_app/smlouvy.html', {'smlouvy': smlouvy,
+                                                           'inkaso_celkem': inkaso_celkem,
+                                                           'sort_param': sort_param})
+
+
+def historie(request):
+    historie = Historie.objects.all().order_by('-datum_cas')
+    return render(request, 'pojistenci_app/historie.html', {'historie': historie})

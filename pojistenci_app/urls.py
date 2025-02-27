@@ -32,4 +32,6 @@ urlpatterns = [
          views.vymazat_smlouvu, name="vymazat_smlouvu"),
     path('smlouvy',
          views.smlouvy, name="smlouvy"),
+    path('historie',
+         views.historie, name="historie"),
 ]
