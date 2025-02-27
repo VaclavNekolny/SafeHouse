@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from pojistenci_app.models import Pojistenci, Produkty, Smlouvy
+from django.db.models import Sum
 import random
+
 
 # Create your views here.
 
@@ -19,7 +21,8 @@ def klienti(request):
 def detail_pojistence(request, id_klienta):
     pojistenec = Pojistenci.objects.get(id=id_klienta)
     smlouvy_klienta = Smlouvy.objects.filter(pojistenec_id__id=id_klienta)
-    return render(request, 'pojistenci_app/smlouvy_pojistence.html', {'pojistenec': pojistenec, 'smlouvy': smlouvy_klienta})
+    celkem_mesicne = smlouvy_klienta.aggregate(Sum('cena'))
+    return render(request, 'pojistenci_app/smlouvy_pojistence.html', {'pojistenec': pojistenec, 'smlouvy': smlouvy_klienta, 'celkem_mesicne': celkem_mesicne})
 
 
 def pridat_pojistence(request):

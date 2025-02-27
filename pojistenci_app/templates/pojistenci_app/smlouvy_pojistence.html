@@ -1,7 +1,6 @@
 {% extends "pojistenci_app/detail_pojistence.html" %}
 
 {% block content_bottom %}
-{% comment %} smlouvy,  pojistenec {% endcomment %}
 <h3 class="mb-4">Všechny smlouvy pojištěnce</h3>
         <table class="table table-hover" id="smlouvy_pojistence">
             <thead>
@@ -12,7 +11,6 @@
                 <th scope="col">Částka krytí</th>
                 <th scope="col">Cena/měs.</th>
                 <th scope="col">Datum podpisu<th>
-                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -22,13 +20,19 @@
                 <td>{{ smlouva.produkt_id.nazev }}</td>
                 <td>{{ smlouva.produkt_id.predmet_kryti }}</td>
                 <td>{{ smlouva.castka_kryti }}</td>
-                <td>{{ smlouva.cena }}</td>
+                <td>{{ smlouva.cena }} kč</td>
                 <td>{{ smlouva.datum }}</td>
                 <td>
                     <a class="btn btn-danger" href={% url 'vymazat_smlouvu' pojistenec.id smlouva.id %}>smazat</a>
-                <td>
             </tr>
             {% endfor %}
+            <tr style="vertical-align: middle;">
+                <td class="bg-light" colspan="3"></td>
+                <th class="bg-light">Celkem měsíčně: </th>
+                <th class="bg-light">{{ celkem_mesicne.cena__sum }} kč</th>
+                <td class="bg-light" colspan="2"></td>
+            </tr>
+
             </tbody>
         </table>
 
