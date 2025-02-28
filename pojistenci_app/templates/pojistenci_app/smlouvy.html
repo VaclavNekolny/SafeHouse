@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     Smlouvy
@@ -6,6 +7,7 @@
 
 
 {% block styles %}
+    <link rel="stylesheet" href="{% static 'pojistenci_app/smlouvy.css' %}">
 {% endblock styles %}
 
 {% comment %} smlouvy,  inkaso_celkem {% endcomment %}
@@ -21,27 +23,27 @@
         <thead>
         {% comment %}  Nadpisy tabulky - řazení položek  {% endcomment %}
         <tr>
-                <th scope="col" class="bg-primary">
+                <th scope="col" class="bg-secondary">
                     <a class="link-light" href="?sort={% if sort_param == 'id' %}-id
                                    {% else %}id{% endif %}">č.smlouvy</a>
                 </th>
-                <th scope="col" class="bg-primary">
+                <th scope="col" class="bg-secondary">
                     <a class="link-light" href="?sort={% if sort_param == 'pojistenec_id__prijmeni' %}-pojistenec_id__prijmeni
                                    {% else %}pojistenec_id__prijmeni{% endif %}">Příjmení a jméno</a>
                 </th>
-                <th scope="col" class="bg-primary">
+                <th scope="col" class="bg-secondary">
                     <a class="link-light" href="?sort={% if sort_param == 'produkt_id__nazev' %}-produkt_id__nazev
                                    {% else %}produkt_id__nazev{% endif %}">Produkt</a>
                 </th>
-                <th scope="col" class="bg-primary">
+                <th scope="col" class="bg-secondary">
                     <a class="link-light" href="?sort={% if sort_param == 'castka_kryti' %}-castka_kryti
                                    {% else %}castka_kryti{% endif %}">Částka krytí (kč)</a>
                 </th>
-                <th scope="col" class="bg-primary">
+                <th scope="col" class="bg-secondary">
                     <a class="link-light" href="?sort={% if sort_param == 'cena' %}-cena
                                    {% else %}cena{% endif %}">Cena (kč/měs.)</a>
                 </th>
-                <th scope="col" class="bg-primary">
+                <th scope="col" class="bg-secondary">
                     <a class="link-light" href="?sort={% if sort_param == 'datum' %}-datum
                                    {% else %}datum{% endif %}">Datum podpisu</a>
                 </th>

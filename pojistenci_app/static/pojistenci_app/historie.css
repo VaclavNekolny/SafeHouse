@@ -1,16 +1,30 @@
 .vytvoreni td {
-    background-color: #e0ffe3;
+    background-color: #ebffed;
 }
 .editace td {
-    background-color: #e4eefd;
+    background-color: #edf3fd;
 }
 .smazani td {
-    background-color: #fde4e4;
+    background-color: #fce9e9;
 }
 .podpis td {
-    background-color: #f5f7cf;
+    background-color: #fcfde8;
 }
 .vypoved td {
-    background-color: #f7ebde;
+    background-color: #fcf5ed;
 }
 
+
+#vsechny_smlouvy th:first-child {
+    border-top-left-radius: 6px;
+}
+#vsechny_smlouvy th:last-child {
+    border-top-right-radius: 6px;
+}
+
+#vsechny_smlouvy tr:last-child td:first-child {
+    border-bottom-left-radius: 6px;
+}
+#vsechny_smlouvy tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+}
