@@ -1,17 +1,86 @@
-{% extends "base.html" %}
+{% extends "base.html" %} 
+{% load static %} 
 
-{% block title %}Pojištěnci App{% endblock title %}
 
-{% block styles %}
-<link rel="stylesheet" href="static/pojistenci_app/index.css">
-{% endblock styles %}
+{% block title %}
+Pojištěnci App
+{%endblock title %} 
+
+
 
 {% block content %}
-<h1>Tento nadpis by měl být červený</h1>
-<p class="lead">Toto je index</p>
-<ul>
-    {% for pojistenec in pojistenci %}
-    <li>{{ pojistenec }}</li>
-    {% endfor %}
-</ul>
+    <div
+    class="d-flex flex-column align-items-center justify-content-center mt-5 pt-3 gap-3"
+    >
+    <img src={% static "pictures/logo-success.png" %} width="170" height="170">
+    <h1 class="text-success">SafeHouse</h1>
+    <p class="lead mb-5 mt-2">
+        Fiktivní pojišťovací aplikace vytvořená jako závěrečný projekt rekvalifikačního kurzu.
+    </p>
+    </div>
+    <div>
+        <p class="d-flex flex-row justify-content-center gap-3">
+            <a
+            class="btn btn-outline-success"
+            style="width: 190px;"
+            data-bs-toggle="collapse"
+            href="#multiCollapseExample1"
+            role="button"
+            aria-expanded="false"
+            aria-controls="multiCollapseExample1"
+            >O projektu SafeHouse</a
+            >
+            <button
+            class="btn btn-outline-success"
+            style="width: 190px;"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#multiCollapseExample2"
+            aria-expanded="false"
+            aria-controls="multiCollapseExample2"
+            >
+            Funkce projektu
+            </button>
+            <button
+            class="btn btn-outline-success"
+            style="width: 190px;"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#multiCollapseExample3"
+            aria-expanded="false"
+            aria-controls="multiCollapseExample3"
+            >
+                O tvůrci 
+            </button>
+        </p>
+        <div class="row">
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                    <div class="card card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                    terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
+                    labore wes anderson cred nesciunt sapiente ea proident.
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample2">
+                    <div class="card card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                    terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
+                    labore wes anderson cred nesciunt sapiente ea proident.
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="collapse multi-collapse" id="multiCollapseExample3">
+                    <div class="card card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+                    terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
+                    labore wes anderson cred nesciunt sapiente ea proident.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

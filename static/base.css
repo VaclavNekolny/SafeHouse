@@ -1,0 +1,12 @@
+html {
+    overflow-y: scroll;
+}
+
+.navbar-brand img{
+    position: relative;
+    top: -4px;
+}
+
+h6 {
+    color: red;
+}

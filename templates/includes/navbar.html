@@ -1,6 +1,9 @@
+{% load static %}
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-md px-5">
-  <a class="navbar-brand" href="#">ADMIN</a>
+  <a class="navbar-brand d-flex align-items-center gap-2 link-success me-5" href={% url "index" %}>
+    <img src={% static 'pictures/logo-success.png' %} width="50" height="50">
+    SafeHouse</a>
   <button
     class="navbar-toggler"
     type="button"

@@ -1,16 +1,16 @@
 .vytvoreni td {
-    background-color: #b5e6bb;
+    background-color: #e0ffe3;
 }
 .editace td {
-    background-color: #cce0fd;
+    background-color: #e4eefd;
 }
 .smazani td {
-    background-color: #ffcaca;
+    background-color: #fde4e4;
 }
 .podpis td {
-    background-color: #edf1a8;
+    background-color: #f5f7cf;
 }
 .vypoved td {
-    background-color: #f8e1c6;
+    background-color: #f7ebde;
 }
 
