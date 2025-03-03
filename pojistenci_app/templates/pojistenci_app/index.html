@@ -2,8 +2,13 @@
 {% load static %} 
 
 
+{% block styles %}
+    <link rel="stylesheet" href={% static "pojistenci_app/index.css" %}>
+{% endblock styles %}
+
+
 {% block title %}
-Pojištěnci App
+    Pojištěnci App
 {%endblock title %} 
 
 
@@ -39,7 +44,7 @@ Pojištěnci App
             aria-expanded="false"
             aria-controls="multiCollapseExample2"
             >
-            Funkce projektu
+            Funkce aplikace
             </button>
             <button
             class="btn btn-outline-success"

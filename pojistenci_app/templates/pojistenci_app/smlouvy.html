@@ -32,8 +32,8 @@
                                    {% else %}pojistenec_id__prijmeni{% endif %}">Příjmení a jméno</a>
                 </th>
                 <th scope="col" class="bg-secondary">
-                    <a class="link-light" href="?sort={% if sort_param == 'produkt_id__nazev' %}-produkt_id__nazev
-                                   {% else %}produkt_id__nazev{% endif %}">Produkt</a>
+                    <a class="link-light" href="?sort={% if sort_param == 'produkt_id__id' %}-produkt_id__id
+                                   {% else %}produkt_id__id{% endif %}">Produkt</a>
                 </th>
                 <th scope="col" class="bg-secondary">
                     <a class="link-light" href="?sort={% if sort_param == 'castka_kryti' %}-castka_kryti
@@ -58,7 +58,7 @@
             <td>({{ smlouva.produkt_id.id }}) {{ smlouva.produkt_id.nazev }}</td>
             <td>{{ smlouva.castka_kryti }}</td>
             <td>{{ smlouva.cena }}</td>
-            <td>{{ smlouva.datum }}</td>
+            <td>{{ smlouva.datum|date:"d.m.Y" }}</td>
         </tr>
         {% endfor %}
         </tbody>

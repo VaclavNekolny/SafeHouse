@@ -34,7 +34,7 @@
             <th scope="col" class=" text-bg-secondary">Pojištěnec</th>
             <th scope="col" class=" text-bg-secondary">Produkt</th>
             <th scope="col" class=" text-bg-secondary">Akce</th>
-            <th scope="col" class=" text-bg-secondary">Detail</th> {% comment %} částka, cena, krytí...{% endcomment %}
+            <th scope="col" class=" text-bg-secondary">Detail</th>
             <th scope="col" class=" text-bg-secondary">Datum akce</th>
         </tr>
         </thead>
@@ -55,7 +55,7 @@
                     <td>{{ zaznam.produkt|default:"--" }}</td>
                     <td>{{ zaznam.akce|default:"--" }}</td>
                     <td>{{ zaznam.detail_akce|default:"--" }}</td>
-                    <td>{{ zaznam.datum_cas }}</td>
+                    <td>{{ zaznam.datum_cas|date:"d.m.Y" }}</td>
                 </tr>
         {% endfor %}
         </tbody>

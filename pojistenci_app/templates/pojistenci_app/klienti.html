@@ -44,12 +44,11 @@ Klienti
                 <td scope="row">{{ klient.id }}</td>
                 <td><img src={% static "/pojistenci_app/pictures/"|add:klient.foto %} width="80"></td>
                 <td>{{ klient.jmeno }} {{ klient.prijmeni }}</td>
-                <td>{{ klient.narozeni }}</td>
-                <td>{{ klient.datum_registrace }}</td>
+                <td>{{ klient.narozeni|date:"d.m.Y" }}</td>
+                <td>{{ klient.datum_registrace|date:"d.m.Y" }}</td>
                 <td>
                     <a class="btn btn-dark btn-sm" href={% url "editovat_pojistence" klient.id %}>editovat</a>
                     <a class="btn btn-danger btn-sm" href={% url "vymazat_pojistence_id" klient.id %}>smazat</a>
-                <td>
             </tr>
             {% endfor %}
             </tbody>

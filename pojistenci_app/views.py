@@ -6,8 +6,6 @@ import random
 
 
 # Create your views here.
-
-
 def index(request):
     pojistenci = Pojistenci.objects.all()
     return render(request, "pojistenci_app/index.html", {'pojistenci': pojistenci})
@@ -112,18 +110,20 @@ def editovat_pojistence(request, edit_id):
         narozeni = request.POST["datum_narozeni"]
         pohlavi = request.POST["pohlavi"]
 
-        if pohlavi == "muz":
-            foto = str(random.randint(1, 15))+".png"
-            je_muz = True
-        else:
-            foto = str(random.randint(50, 65))+".png"
-            je_muz = False
+        # Fotka se změní pouze při změně pohlaví při editaci
+        if (not pojistenec_k_editaci.je_muz and pohlavi == "muz") or (pojistenec_k_editaci.je_muz and pohlavi == "zena"):
+            if pohlavi == "muz":
+                foto = str(random.randint(1, 15))+".png"
+                je_muz = True
+            else:
+                foto = str(random.randint(50, 65))+".png"
+                je_muz = False
+            pojistenec_k_editaci.foto = foto
+            pojistenec_k_editaci.je_muz = je_muz
 
         pojistenec_k_editaci.jmeno = jmeno
         pojistenec_k_editaci.prijmeni = prijmeni
         pojistenec_k_editaci.narozeni = narozeni
-        pojistenec_k_editaci.foto = foto
-        pojistenec_k_editaci.je_muz = je_muz
         pojistenec_k_editaci.save()
 
         # Záznam do historie

@@ -6,3 +6,11 @@ html {
     position: relative;
     top: -4px;
 }
+
+body {
+    background: radial-gradient(circle at center 200px, #d9e0d9, #ffffff 90%);
+    position: relative;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    height: 100%;
+}
