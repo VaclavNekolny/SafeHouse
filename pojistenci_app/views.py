@@ -94,14 +94,14 @@ def klienti(request):
     return render(request, 'pojistenci_app/klienti.html', {'klienti': vsichni_klienti})
 
 
-def detail_pojistence(request, id_klienta):
-    pojistenec = Pojistenci.objects.get(id=id_klienta)
+def klient_detail(request, id_klienta):
+    klient = Pojistenci.objects.get(id=id_klienta)
     smlouvy_klienta = Smlouvy.objects.filter(pojistenec_id__id=id_klienta)
     celkem_mesicne = smlouvy_klienta.aggregate(Sum('cena'))
-    return render(request, 'pojistenci_app/smlouvy_pojistence.html', {'pojistenec': pojistenec, 'smlouvy': smlouvy_klienta, 'celkem_mesicne': celkem_mesicne})
+    return render(request, 'pojistenci_app/klient_smlouvy.html', {'klient': klient, 'smlouvy': smlouvy_klienta, 'celkem_mesicne': celkem_mesicne})
 
 
-def pridat_pojistence(request):
+def klient_pridat(request):
     if request.method == "POST":
         jmeno = request.POST["jmeno"]
         prijmeni = request.POST["prijmeni"]
@@ -116,107 +116,107 @@ def pridat_pojistence(request):
             je_muz = False
 
         # Uložení do databáze
-        novy_pojistenec = Pojistenci(jmeno=jmeno, prijmeni=prijmeni,
-                                     narozeni=narozeni, foto=foto, je_muz=je_muz)
-        novy_pojistenec.save()
+        novy_klient = Pojistenci(jmeno=jmeno, prijmeni=prijmeni,
+                                 narozeni=narozeni, foto=foto, je_muz=je_muz)
+        novy_klient.save()
 
         # Záznam do historie
-        id = novy_pojistenec.id
-        pojistenec = jmeno + " " + prijmeni
-        detail_akce = f"Přidání Pojištěnce {jmeno} {prijmeni}"
-        historie = Historie(pojistenec_id=id, pojistenec=pojistenec,
+        id = novy_klient.id
+        klient = jmeno + " " + prijmeni
+        detail_akce = f"Přidání klienta {jmeno} {prijmeni}"
+        historie = Historie(pojistenec_id=id, pojistenec=klient,
                             akce='Vytvoření', detail_akce=detail_akce)
         historie.save()
 
-        message = f"Pojištěnec {jmeno} {prijmeni} přidán do databáze"
-        return render(request, 'pojistenci_app/pridat_pojistence.html', {'message': message, 'pridat': True})
+        message = f"Klient {jmeno} {prijmeni} přidán do databáze"
+        return render(request, 'pojistenci_app/klient_pridat.html', {'message': message, 'pridat': True})
 
-    return render(request, 'pojistenci_app/pridat_pojistence.html', {'pridat': True})
+    return render(request, 'pojistenci_app/klient_pridat.html', {'pridat': True})
 
 
-def vymazat_pojistence(request):
+def klient_vymazat(request):
 
-    pojistenci = Pojistenci.objects.all()
+    klienti = Pojistenci.objects.all()
 
     if request.method == "POST":
-        id = request.POST["pojistenci"]
-        pojistenec_ke_smazani = Pojistenci.objects.get(id=id)
+        id = request.POST["klient_id"]
+        klient_ke_smazani = Pojistenci.objects.get(id=id)
 
-        jmeno = pojistenec_ke_smazani.jmeno
-        prijmeni = pojistenec_ke_smazani.prijmeni
+        jmeno = klient_ke_smazani.jmeno
+        prijmeni = klient_ke_smazani.prijmeni
 
         # Záznam do historie
-        id = pojistenec_ke_smazani.id
-        pojistenec = jmeno + " " + prijmeni
-        detail_akce = f"Smazání Pojištěnce {jmeno} {prijmeni}"
-        historie = Historie(pojistenec_id=id, pojistenec=pojistenec,
+        id = klient_ke_smazani.id
+        klient = jmeno + " " + prijmeni
+        detail_akce = f"Smazání klienta {jmeno} {prijmeni}"
+        historie = Historie(pojistenec_id=id, pojistenec=klient,
                             akce='Smazání', detail_akce=detail_akce)
         historie.save()
 
-        pojistenec_ke_smazani.delete()
+        klient_ke_smazani.delete()
 
-        message = f"Pojištěnec {jmeno} {prijmeni} byl smazán z databáze."
-        return render(request, 'pojistenci_app/vymazat_pojistence.html', {'message': message, 'vymazat': True, 'pojistenci': pojistenci})
+        message = f"Klient {jmeno} {prijmeni} byl smazán z databáze."
+        return render(request, 'pojistenci_app/klient_vymazat.html', {'message': message, 'vymazat': True, 'klienti': klienti})
 
-    return render(request, 'pojistenci_app/vymazat_pojistence.html', {'vymazat': True, 'pojistenci': pojistenci})
+    return render(request, 'pojistenci_app/klient_vymazat.html', {'vymazat': True, 'klienti': klienti})
 
 
-def vymazat_pojistence_id(request, del_id):
-    pojistenec_ke_smazani = Pojistenci.objects.get(id=del_id)
+def klient_vymazat_podle_id(request, klient_id):
+    klient_ke_smazani = Pojistenci.objects.get(id=klient_id)
 
     # Záznam do historie
-    jmeno = pojistenec_ke_smazani.jmeno
-    prijmeni = pojistenec_ke_smazani.prijmeni
-    id = pojistenec_ke_smazani.id
-    pojistenec = jmeno + " " + prijmeni
-    detail_akce = f"Smazání Pojištěnce {jmeno} {prijmeni}"
-    historie = Historie(pojistenec_id=id, pojistenec=pojistenec,
+    jmeno = klient_ke_smazani.jmeno
+    prijmeni = klient_ke_smazani.prijmeni
+    id = klient_ke_smazani.id
+    klient = jmeno + " " + prijmeni
+    detail_akce = f"Smazání klienta {jmeno} {prijmeni}"
+    historie = Historie(pojistenec_id=id, pojistenec=klient,
                         akce='Smazání', detail_akce=detail_akce)
     historie.save()
 
-    pojistenec_ke_smazani.delete()
+    klient_ke_smazani.delete()
     return redirect('klienti')
 
 
-def editovat_pojistence(request, edit_id):
+def klient_editovat(request, klient_id):
 
     if request.method == "POST":
         id = request.POST["id"]
-        pojistenec_k_editaci = Pojistenci.objects.get(id=id)
+        klient_k_editaci = Pojistenci.objects.get(id=id)
         jmeno = request.POST["jmeno"]
         prijmeni = request.POST["prijmeni"]
         narozeni = request.POST["datum_narozeni"]
         pohlavi = request.POST["pohlavi"]
 
         # Fotka se změní pouze při změně pohlaví při editaci
-        if (not pojistenec_k_editaci.je_muz and pohlavi == "muz") or (pojistenec_k_editaci.je_muz and pohlavi == "zena"):
+        if (not klient_k_editaci.je_muz and pohlavi == "muz") or (klient_k_editaci.je_muz and pohlavi == "zena"):
             if pohlavi == "muz":
                 foto = str(random.randint(1, 15))+".png"
                 je_muz = True
             else:
                 foto = str(random.randint(50, 65))+".png"
                 je_muz = False
-            pojistenec_k_editaci.foto = foto
-            pojistenec_k_editaci.je_muz = je_muz
+            klient_k_editaci.foto = foto
+            klient_k_editaci.je_muz = je_muz
 
-        pojistenec_k_editaci.jmeno = jmeno
-        pojistenec_k_editaci.prijmeni = prijmeni
-        pojistenec_k_editaci.narozeni = narozeni
-        pojistenec_k_editaci.save()
+        klient_k_editaci.jmeno = jmeno
+        klient_k_editaci.prijmeni = prijmeni
+        klient_k_editaci.narozeni = narozeni
+        klient_k_editaci.save()
 
         # Záznam do historie
-        id = pojistenec_k_editaci.id
-        pojistenec = jmeno + " " + prijmeni
-        detail_akce = f"Editace pojištěnce {jmeno} {prijmeni}"
-        historie = Historie(pojistenec_id=id, pojistenec=pojistenec,
+        id = klient_k_editaci.id
+        klient = jmeno + " " + prijmeni
+        detail_akce = f"Editace klienta {jmeno} {prijmeni}"
+        historie = Historie(pojistenec_id=id, pojistenec=klient,
                             akce='Editace', detail_akce=detail_akce)
         historie.save()
 
-        message = f"Pojištěnec {jmeno} {prijmeni} editován"
-        return render(request, 'pojistenci_app/editovat_pojistence.html', {'message': message, 'editovat': True})
+        message = f"Klient {jmeno} {prijmeni} editován"
+        return render(request, 'pojistenci_app/klient_editovat.html', {'message': message, 'editovat': True})
 
-    pojistenec_k_editaci = Pojistenci.objects.get(id=edit_id)
-    return render(request, 'pojistenci_app/editovat_pojistence.html', {'editovat': True, 'pojistenec': pojistenec_k_editaci})
+    klient_k_editaci = Pojistenci.objects.get(id=klient_id)
+    return render(request, 'pojistenci_app/klient_editovat.html', {'editovat': True, 'klient': klient_k_editaci})
 
 
 def nova_smlouva(request, klient_id):

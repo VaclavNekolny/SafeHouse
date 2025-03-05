@@ -8,15 +8,15 @@
         {{ message }}      
     </div>
     {% endif %}
-    <h3 class="mb-5">Vymazat pojištěnce</h3>
+    <h3 class="mb-5">Vymazat klienta</h3>
     <form action="vymazat" method="post">
         {% csrf_token %}
             <div class="input-group">
-                <select class="custom-select px-3 py-2 rounded-start" id="pojistenci" name="pojistenci">
-                    {% for pojistenec in pojistenci %}
-                        <option value="{{ pojistenec.id }}">
-                            {{ pojistenec.jmeno }} {{ pojistenec.prijmeni }} - 
-                            {{ pojistenec.narozeni.month }} / {{ pojistenec.narozeni.year }}</option>
+                <select class="custom-select px-3 py-2 rounded-start" id="klient_id" name="klient_id">
+                    {% for klient in klienti %}
+                        <option value="{{ klient.id }}">
+                            {{ klient.jmeno }} {{ klient.prijmeni }} - 
+                            {{ klient.narozeni.month }} / {{ klient.narozeni.year }}</option>
                     {% endfor %}
                 </select>
                 <button class="btn btn-outline-danger btn-lg" type="submit">Vymazat</button>

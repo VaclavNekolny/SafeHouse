@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Pojištěnec: {{ klient.jmeno }} {{ klient.prijmeni }}
+{% endblock title %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href={% static "pojistenci_app/klient_detail.css" %}>
+{% endblock styles %}
+
+
+
+
+{% block content %}
+    <div class="container-md">
+        <h1 class="text-center pt-4 bg-light mb-0">DETAIL KLIENTA</h1>
+        <div class="bg-light p-5 mb-5 d-flex gap-3 justify-content-center rounded-bottom">
+            <div class="detail-klienta d-flex align-items-center justify-content-around w-75">
+                <div>
+                    <img src="{% static "/pojistenci_app/pictures/"|add:klient.foto %}">
+                </div>
+                <div>
+                    <h4 class="mb-3">{{ klient.jmeno }} {{ klient.prijmeni }} - {% if klient.je_muz %}MUŽ{% else %}ŽENA{% endif %}</h4>
+                    <p class="lead">Datum narození: {{ klient.narozeni|date:"d.m.Y" }}</p>
+                    <p class="lead">Datum registrace: {{ klient.datum_registrace|date:"d.m.Y" }}</p>
+                    <div class="d-flex gap-3">
+                        <a class="btn btn-primary btn-sm mt-2" href={% url "klient_detail" klient.id %}>Všechny smlouvy</a>
+                        <a class="btn btn-success btn-sm mt-2" href={% url "nova_smlouva" klient.id %}>Nová smlouva</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-md">
+        {% block content_bottom %}
+        
+        {% endblock content_bottom %}
+    </div>
+{% endblock content %}

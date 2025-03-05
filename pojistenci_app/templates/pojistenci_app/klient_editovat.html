@@ -8,31 +8,31 @@
     {{ message }}      
     </div>
     {% endif %}
-    <h3 class="mb-5">Editovat pojištěnce</h3>
+    <h3 class="mb-5">Editovat klienta</h3>
     <form action="" method="post">
         {% csrf_token %}
-        <input type="hidden" name="id" value={{ pojistenec.id }}>
+        <input type="hidden" name="id" value={{ klient.id }}>
         <div class="mb-3">
             <label for="jmeno" class="form-label">Jméno</label>
-            <input type="text" class="form-control" id="jmeno" name="jmeno" value="{{ pojistenec.jmeno }}" required>
+            <input type="text" class="form-control" id="jmeno" name="jmeno" value="{{ klient.jmeno }}" required>
         </div>
         <div class="mb-3">
             <label for="prijmeni" class="form-label">Příjmení</label>
-            <input type="text" class="form-control" id="prijmeni" name="prijmeni" value="{{ pojistenec.prijmeni }}" required>
+            <input type="text" class="form-control" id="prijmeni" name="prijmeni" value="{{ klient.prijmeni }}" required>
         </div>
         <div class="mb-3">
             <label for="datum_narozeni" class="form-label">Datum narození</label>
-            <input type="date" class="form-control" id="datum_narozeni" name="datum_narozeni" value={{ pojistenec.narozeni|date:'Y-m-d' }} required>
+            <input type="date" class="form-control" id="datum_narozeni" name="datum_narozeni" value={{ klient.narozeni|date:'Y-m-d' }} required>
         </div>
         <div class="d-flex gap-1 mb-3">
             <label class="me-1">Muž</label>
             <input type="hidden" name="pohlavi" value="muz">
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="prepinacPohlavi" name="pohlavi" value="zena" 
-                    {% if pojistenec and not pojistenec.je_muz %}checked{% endif %}>
+                    {% if klient and not klient.je_muz %}checked{% endif %}>
                 </div>
             <label>Žena</label>
         </div>
-        <button type="submit" class="btn btn-success">Editovat pojištěnce</button>
+        <button type="submit" class="btn btn-success">Uložit</button>
     </form>
 {% endblock form %}

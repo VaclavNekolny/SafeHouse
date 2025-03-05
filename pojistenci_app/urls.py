@@ -19,15 +19,15 @@ urlpatterns = [
     # KLIENTI
     path('klienti', views.klienti, name="klienti"),
     path('klienti/<int:id_klienta>/',
-         views.detail_pojistence, name="detail_pojistence"),
+         views.klient_detail, name="klient_detail"),
     path('klienti/pridat',
-         views.pridat_pojistence, name="pridat_pojistence"),
+         views.klient_pridat, name="klient_pridat"),
     path('klienti/vymazat',
-         views.vymazat_pojistence, name="vymazat_pojistence"),
-    path('klienti/vymazat/<int:del_id>',
-         views.vymazat_pojistence_id, name="vymazat_pojistence_id"),
-    path('klienti/editovat/<int:edit_id>',
-         views.editovat_pojistence, name="editovat_pojistence"),
+         views.klient_vymazat, name="klient_vymazat"),
+    path('klienti/vymazat/<int:klient_id>',
+         views.klient_vymazat_podle_id, name="klient_vymazat_podle_id"),
+    path('klienti/editovat/<int:klient_id>',
+         views.klient_editovat, name="klient_editovat"),
 
 
     # KLIENTI-SMLOUVY

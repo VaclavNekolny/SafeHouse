@@ -17,9 +17,9 @@ Klienti
     <div class="container-md">
         <h1 class="text-center pt-4 bg-light mb-0">SPRÁVA KLIENTŮ</h1>
         <div class="bg-light p-5 mb-5 d-flex gap-3 justify-content-center rounded-bottom">
-            <a class="btn btn-primary" href={% url "klienti" %}>Všichni pojištěnci</a>
-            <a class="btn btn-success" href={% url "pridat_pojistence" %}>Přidat pojištěnce</a>
-            <a class="btn btn-danger" href={% url "vymazat_pojistence" %}>Vymazat pojištěnce</a>
+            <a class="btn btn-primary" href={% url "klienti" %}>Všichni klienti</a>
+            <a class="btn btn-success" href={% url "klient_pridat" %}>Přidat klienta</a>
+            <a class="btn btn-danger" href={% url "klient_vymazat" %}>Vymazat klienta</a>
         </div>
         {% if pridat or editovat or vymazat %}
             {% block form %}
@@ -39,7 +39,7 @@ Klienti
             </thead>
             <tbody>
             {% for klient in klienti %}
-            <tr onclick="window.location.href='{% url "detail_pojistence" klient.id %}';"
+            <tr onclick="window.location.href='{% url "klient_detail" klient.id %}';"
                 style="cursor:pointer; vertical-align: middle;">
                 <td scope="row">{{ klient.id }}</td>
                 <td><img src={% static "/pojistenci_app/pictures/"|add:klient.foto %} width="80"></td>
@@ -47,8 +47,8 @@ Klienti
                 <td>{{ klient.narozeni|date:"d.m.Y" }}</td>
                 <td>{{ klient.datum_registrace|date:"d.m.Y" }}</td>
                 <td>
-                    <a class="btn btn-dark btn-sm" href={% url "editovat_pojistence" klient.id %}>editovat</a>
-                    <a class="btn btn-danger btn-sm" href={% url "vymazat_pojistence_id" klient.id %}>smazat</a>
+                    <a class="btn btn-dark btn-sm" href={% url "klient_editovat" klient.id %}>editovat</a>
+                    <a class="btn btn-danger btn-sm" href={% url "klient_vymazat_podle_id" klient.id %}>smazat</a>
             </tr>
             {% endfor %}
             </tbody>

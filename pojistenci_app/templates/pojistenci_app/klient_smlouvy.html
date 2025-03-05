@@ -1,9 +1,9 @@
-{% extends "pojistenci_app/detail_pojistence.html" %}
+{% extends "pojistenci_app/klient_detail.html" %}
 
 {% block content_bottom %}
 {% if smlouvy %}
-<h3 class="mb-4">Všechny smlouvy pojištěnce</h3>
-        <table class="table table-hover" id="smlouvy_pojistence">
+<h3 class="mb-4">Všechny smlouvy klienta</h3>
+        <table class="table table-hover" id="smlouvy_klienta">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -24,7 +24,7 @@
                 <td>{{ smlouva.cena }} kč</td>
                 <td>{{ smlouva.datum }}</td>
                 <td>
-                    <a class="btn btn-danger" href={% url 'vymazat_smlouvu' pojistenec.id smlouva.id %}>smazat</a>
+                    <a class="btn btn-danger" href={% url 'vymazat_smlouvu' klient.id smlouva.id %}>smazat</a>
             </tr>
             {% endfor %}
             <tr style="vertical-align: middle;">
@@ -39,7 +39,7 @@
 {% else %}
 
 <div class="alert alert-info" role="alert">
-    Pojištěnec {{ pojistenec.jmeno }} {{ pojistenec.prijmeni }} nemá žádné aktivní smlovy.  
+    Klient {{ klient.jmeno }} {{ klient.prijmeni }} nemá žádné aktivní smlovy.  
 </div>
 
 {% endif %}

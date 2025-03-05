@@ -8,7 +8,7 @@
         {{ message }}      
     </div>
     {% endif %}
-    <h3 class="mb-5">Přidat pojištěnce</h3>
+    <h3 class="mb-5">Přidat klienta</h3>
     <form action="pridat" method="post">
         {% csrf_token %}
         <div class="mb-3">
@@ -31,6 +31,6 @@
                 </div>
             <label>Žena</label>
         </div>
-        <button type="submit" class="btn btn-success">Přidat pojištěnce</button>
+        <button type="submit" class="btn btn-success">Uložit</button>
     </form>
 {% endblock form %}
