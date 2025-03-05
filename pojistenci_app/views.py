@@ -5,10 +5,88 @@ from django.db.models import Sum
 import random
 
 
-# Create your views here.
 def index(request):
     pojistenci = Pojistenci.objects.all()
     return render(request, "pojistenci_app/index.html", {'pojistenci': pojistenci})
+
+
+def produkty(request):
+    pojistovaci_produkty = Produkty.objects.all()
+    return render(request, 'pojistenci_app/produkty.html', {'produkty': pojistovaci_produkty})
+
+
+def pridat_produkt(request):
+    if request.method == "POST":
+        nazev = request.POST["nazev"]
+        predmet_kryti = request.POST["predmet_kryti"]
+        castka = request.POST["castka"]
+        cena = request.POST["cena"]
+        pomer = round(int(castka)/int(cena), 2)
+
+        novy_produkt = Produkty(nazev=nazev, predmet_kryti=predmet_kryti,
+                                zakladni_castka=castka, zakladni_cena=cena, pomer=pomer)
+        novy_produkt.save()
+
+        # Záznam do historie
+        id = novy_produkt.id
+        produkt = novy_produkt.nazev
+        detail_akce = f"Přidání produktu {produkt}"
+        historie = Historie(produkt_id=id, produkt=produkt,
+                            akce='Vytvoření', detail_akce=detail_akce)
+        historie.save()
+
+        message = f"Produkt '{nazev}' přidán do databáze"
+        return render(request, 'pojistenci_app/pridat_produkt.html', {'message': message, 'pridat': True})
+
+    return render(request, 'pojistenci_app/pridat_produkt.html', {'pridat': True})
+
+
+def editovat_produkt(request, edit_id):
+
+    if request.method == "POST":
+        id = request.POST["id"]
+        produkt_k_editaci = Produkty.objects.get(id=id)
+        nazev = request.POST["nazev"]
+        predmet_kryti = request.POST["predmet_kryti"]
+        castka = request.POST["castka"]
+        cena = request.POST["cena"]
+        pomer = round(int(castka)/int(cena), 2)
+
+        produkt_k_editaci.nazev = nazev
+        produkt_k_editaci.predmet_kryti = predmet_kryti
+        produkt_k_editaci.zakladni_castka = castka
+        produkt_k_editaci.zakladni_cena = cena
+        produkt_k_editaci.pomer = pomer
+        produkt_k_editaci.save()
+
+        # Záznam do historie
+        id = produkt_k_editaci.id
+        produkt = produkt_k_editaci.nazev
+        detail_akce = f"Editace pojištění {produkt}"
+        historie = Historie(produkt_id=id, produkt=produkt,
+                            akce='Editace', detail_akce=detail_akce)
+        historie.save()
+
+        message = f"Produkt '{nazev}' editován"
+        return render(request, 'pojistenci_app/editovat_produkt.html', {'message': message, 'editovat': True})
+
+    produkt_k_editaci = Produkty.objects.get(id=edit_id)
+    return render(request, 'pojistenci_app/editovat_produkt.html', {'editovat': True, 'produkt': produkt_k_editaci})
+
+
+def vymazat_produkt(request, del_produkt_id):
+    produkt_k_vymazani = Produkty.objects.get(id=del_produkt_id)
+
+    # Záznam do historie
+    id = produkt_k_vymazani.id
+    produkt = produkt_k_vymazani.nazev
+    detail_akce = f"Vymazání produktu '{produkt}'"
+    historie = Historie(produkt_id=id, produkt=produkt,
+                        akce='Smazání', detail_akce=detail_akce)
+    historie.save()
+
+    produkt_k_vymazani.delete()
+    return redirect('produkty')
 
 
 def klienti(request):
@@ -139,85 +217,6 @@ def editovat_pojistence(request, edit_id):
 
     pojistenec_k_editaci = Pojistenci.objects.get(id=edit_id)
     return render(request, 'pojistenci_app/editovat_pojistence.html', {'editovat': True, 'pojistenec': pojistenec_k_editaci})
-
-
-def pojisteni(request):
-    pojistovaci_produkty = Produkty.objects.all()
-    return render(request, 'pojistenci_app/pojisteni.html', {'produkty': pojistovaci_produkty})
-
-
-def pridat_pojisteni(request):
-    if request.method == "POST":
-        nazev = request.POST["nazev"]
-        predmet_kryti = request.POST["predmet_kryti"]
-        castka = request.POST["castka"]
-        cena = request.POST["cena"]
-        pomer = round(int(castka)/int(cena), 2)
-
-        nove_pojisteni = Produkty(nazev=nazev, predmet_kryti=predmet_kryti,
-                                  zakladni_castka=castka, zakladni_cena=cena, pomer=pomer)
-        nove_pojisteni.save()
-
-        # Záznam do historie
-        id = nove_pojisteni.id
-        pojisteni = nove_pojisteni.nazev
-        detail_akce = f"Přidání pojištění {pojisteni}"
-        historie = Historie(produkt_id=id, produkt=pojisteni,
-                            akce='Vytvoření', detail_akce=detail_akce)
-        historie.save()
-
-        message = f"Pojištění {nazev} přidáno do databáze"
-        return render(request, 'pojistenci_app/pridat_pojisteni.html', {'message': message, 'pridat': True})
-
-    return render(request, 'pojistenci_app/pridat_pojisteni.html', {'pridat': True})
-
-
-def editovat_pojisteni(request, edit_id):
-
-    if request.method == "POST":
-        id = request.POST["id"]
-        pojisteni_k_editaci = Produkty.objects.get(id=id)
-        nazev = request.POST["nazev"]
-        predmet_kryti = request.POST["predmet_kryti"]
-        castka = request.POST["castka"]
-        cena = request.POST["cena"]
-        pomer = round(int(castka)/int(cena), 2)
-
-        pojisteni_k_editaci.nazev = nazev
-        pojisteni_k_editaci.predmet_kryti = predmet_kryti
-        pojisteni_k_editaci.zakladni_castka = castka
-        pojisteni_k_editaci.zakladni_cena = cena
-        pojisteni_k_editaci.pomer = pomer
-        pojisteni_k_editaci.save()
-
-        # Záznam do historie
-        id = pojisteni_k_editaci.id
-        pojisteni = pojisteni_k_editaci.nazev
-        detail_akce = f"Editace pojištění {pojisteni}"
-        historie = Historie(produkt_id=id, produkt=pojisteni,
-                            akce='Editace', detail_akce=detail_akce)
-        historie.save()
-
-        message = f"Pojištění '{nazev}' editováno"
-        return render(request, 'pojistenci_app/editovat_pojisteni.html', {'message': message, 'editovat': True})
-
-    pojisteni_k_editaci = Produkty.objects.get(id=edit_id)
-    return render(request, 'pojistenci_app/editovat_pojisteni.html', {'editovat': True, 'pojisteni': pojisteni_k_editaci})
-
-
-def vymazat_pojisteni(request, del_produkt_id):
-    pojisteni_k_vymazani = Produkty.objects.filter(id=del_produkt_id)
-
-    # Záznam do historie
-    id = pojisteni_k_vymazani.id
-    pojisteni = pojisteni_k_vymazani.nazev
-    detail_akce = f"Vymazání pojištění {pojisteni}"
-    historie = Historie(produkt_id=id, produkt=pojisteni,
-                        akce='Smazání', detail_akce=detail_akce)
-    historie.save()
-
-    pojisteni_k_vymazani.delete()
-    return redirect('pojisteni')
 
 
 def nova_smlouva(request, klient_id):

@@ -5,18 +5,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% bootstrap_css %} 
-    {% block styles %}{% endblock styles %}
-    <link rel="stylesheet" href="{% static 'base.css' %}">
-    <title>{% block title %}{% endblock title %}</title>
+    {% bootstrap_css %}
+    {% block styles %}
+
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'base.css' %}" />
+    <title>
+      {% block title %}
+
+      {% endblock %}
+    </title>
   </head>
   <body>
     <header>
-        {% include "includes/navbar.html" %}
+      {% include 'includes/navbar.html' %}
     </header>
-      <div class="container-md">
-        {% block content %} 
-        {% endblock content %}
+    <div class="container-md">
+      {% block content %}
+
+      {% endblock %}
     </div>
     {% bootstrap_javascript %}
   </body>

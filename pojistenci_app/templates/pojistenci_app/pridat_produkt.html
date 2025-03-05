@@ -1,4 +1,4 @@
-{% extends "pojistenci_app/pojisteni.html" %}
+{% extends "pojistenci_app/produkty.html" %}
 {% load static %}
 
 
@@ -8,11 +8,11 @@
         {{ message }}      
     </div>
     {% endif %}
-    <h3 class="mb-5">Přidat pojištění</h3>
+    <h3 class="mb-5">Přidat produkt</h3>
     <form action="pridat" method="post">
         {% csrf_token %}
         <div class="mb-3">
-            <label for="nazev" class="form-label">Název produktu</label>
+            <label for="nazev" class="form-label">Název pojištění</label>
             <input type="text" class="form-control" id="nazev" name="nazev" required>
         </div>
         <div class="mb-3">

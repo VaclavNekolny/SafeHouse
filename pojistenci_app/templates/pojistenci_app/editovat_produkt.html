@@ -1,0 +1,39 @@
+{% extends "pojistenci_app/produkty.html" %}
+{% load static %}
+
+
+{% block form %}
+    {% if message %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}      
+    </div>
+    {% endif %}
+    <h3 class="mb-5">Editovat produkt</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="nazev" class="form-label">Název pojištění</label>
+            <input type="text" class="form-control" id="nazev" name="nazev" value='{{ produkt.nazev }}' required>
+        </div>
+        <div class="mb-3">
+            <label for="predmet_kryti" class="form-label">Předmět krytí</label>
+            <input type="text" class="form-control" id="predmet_kryti" name="predmet_kryti" value='{{ produkt.predmet_kryti }}' required>
+        </div>
+        <div class="mb-3">
+            <label for="castka" class="form-label">Částka krytí</label>
+            <input type="number" class="form-control" id="castka" name="castka" value={{ produkt.zakladni_castka }} required>
+        </div>
+        <div class="mb-3">
+            <label for="cena" class="form-label">Cena pojištění</label>
+            <input type="number" class="form-control" id="cena" name="cena" value={{ produkt.zakladni_cena }} required>
+        </div>
+        <input type="hidden" name="id" value={{ produkt.id }}>
+        <div>
+            <p id="pomer"></p>
+        </div>
+
+        <button type="submit" class="btn btn-success">Editovat produkt</button>
+    </form>
+
+    <script src={% static "pojistenci_app/js/dynamicky_vypocet_pomeru.js" %}></script>
+{% endblock form %}

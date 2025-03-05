@@ -17,9 +17,9 @@ Klienti
     <div class="container-md">
         <h1 class="text-center pt-4 bg-light mb-0">SPRÁVA KLIENTŮ</h1>
         <div class="bg-light p-5 mb-5 d-flex gap-3 justify-content-center rounded-bottom">
-            <a class="btn btn-primary btn-lg" href={% url "klienti" %}>Všichni pojištěnci</a>
-            <a class="btn btn-success btn-lg" href={% url "pridat_pojistence" %}>Přidat pojištěnce</a>
-            <a class="btn btn-danger btn-lg" href={% url "vymazat_pojistence" %}>Vymazat pojištěnce</a>
+            <a class="btn btn-primary" href={% url "klienti" %}>Všichni pojištěnci</a>
+            <a class="btn btn-success" href={% url "pridat_pojistence" %}>Přidat pojištěnce</a>
+            <a class="btn btn-danger" href={% url "vymazat_pojistence" %}>Vymazat pojištěnce</a>
         </div>
         {% if pridat or editovat or vymazat %}
             {% block form %}

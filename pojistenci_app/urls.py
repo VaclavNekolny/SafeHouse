@@ -5,6 +5,18 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name="index"),
+
+    # POJIŠTĚNÍ
+    path('produkty',
+         views.produkty, name="produkty"),
+    path('produkty/pridat',
+         views.pridat_produkt, name="pridat_produkt"),
+    path('produkty/editovat/<int:edit_id>',
+         views.editovat_produkt, name="editovat_produkt"),
+    path('produkty/vymazat/<int:del_produkt_id>',
+         views.vymazat_produkt, name="vymazat_produkt"),
+
+    # KLIENTI
     path('klienti', views.klienti, name="klienti"),
     path('klienti/<int:id_klienta>/',
          views.detail_pojistence, name="detail_pojistence"),
@@ -16,22 +28,23 @@ urlpatterns = [
          views.vymazat_pojistence_id, name="vymazat_pojistence_id"),
     path('klienti/editovat/<int:edit_id>',
          views.editovat_pojistence, name="editovat_pojistence"),
-    path('pojisteni',
-         views.pojisteni, name="pojisteni"),
-    path('pojisteni/pridat',
-         views.pridat_pojisteni, name="pridat_pojisteni"),
-    path('pojisteni/editovat/<int:edit_id>',
-         views.editovat_pojisteni, name="editovat_pojisteni"),
-    path('pojisteni/vymazat/<int:del_produkt_id>',
-         views.vymazat_pojisteni, name="vymazat_pojisteni"),
+
+
+    # KLIENTI-SMLOUVY
     path('klienti/<int:klient_id>/nova_smlouva',
          views.nova_smlouva, name="nova_smlouva"),
     path('klienti/<int:klient_id>/podepsat',
          views.podepsat, name="podepsat"),
     path('klienti/<int:klient_id>/vymazat/<int:delete_id>',
          views.vymazat_smlouvu, name="vymazat_smlouvu"),
+
+
+    # SMLOUVY
     path('smlouvy',
          views.smlouvy, name="smlouvy"),
+
+
+    # HISTORIE
     path('historie',
          views.historie, name="historie"),
 ]
