@@ -4,6 +4,7 @@
 
 {% block styles %}
     <link rel="stylesheet" href={% static "pojistenci_app/index.css" %}>
+
 {% endblock styles %}
 
 
@@ -33,7 +34,7 @@
             role="button"
             aria-expanded="false"
             aria-controls="multiCollapseExample1"
-            >O projektu SafeHouse</a
+            >O aplikaci SafeHouse</a
             >
             <button
             class="btn btn-outline-success"
@@ -59,30 +60,41 @@
             </button>
         </p>
         <div class="row">
-            <div class="col">
+            <div class="col-3">
                 <div class="collapse multi-collapse" id="multiCollapseExample1">
                     <div class="card card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                    terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-                    labore wes anderson cred nesciunt sapiente ea proident.
+                        Aplikace SafeHouse vznikla jako závěrečný projekt v rekvalifikačním kurzu ITnetwork.
+                        Následně jsem se ji pokusil vyladit po stránce grafické i funkční tak, jak to zatím umím nejlépe.
+                        <b class="d-block mt-2">Použité technologie:</b> 
+                        Django, Python, HTML, CSS, Bootstrap, JavaScript
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <div class="collapse multi-collapse" id="multiCollapseExample2">
                     <div class="card card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                    terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-                    labore wes anderson cred nesciunt sapiente ea proident.
+                    CRUD správa klientů, pojišťovacích produktů a podepsaných smluv konkrétních klientů.
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-6">
                 <div class="collapse multi-collapse" id="multiCollapseExample3">
                     <div class="card card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                    terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-                    labore wes anderson cred nesciunt sapiente ea proident.
+                        <div class="row">
+                            <div class="col-7">
+                                <p>Jmenuji se <strong>Václav Nekolný</strong> a jsem začínající programátor.
+                                Baví mě se stále učit nové věci, zkoumat věci do hloubky a přicházet jim na kloub.<br>
+                                Mám rád, když věci hezky vypadají, efektivně fungují a jsou logicky vystavěné.<br>
+                                Miluji klávesové zkratky!
+                                </p>
+                                <svg width="25" height="25" fill="#777777" class="bi bi-linkedin" viewBox="0 0 16 16">
+                                    <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+                                </svg>
+                            </div>
+                            <div class="col-5">
+                                <img id="about_foto" src={% static "pojistenci_app/pictures/vaclav_nekolny.png" %} width="250">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

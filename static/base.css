@@ -12,5 +12,9 @@ body {
     position: relative;
     background-repeat: no-repeat;
     min-height: 100vh;
-    height: 150vh;
+}
+
+#about_foto {
+    position:relative;
+    top: -100px;
 }

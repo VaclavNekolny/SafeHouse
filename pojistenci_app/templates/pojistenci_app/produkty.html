@@ -38,7 +38,8 @@ Pojištění
             </thead>
             <tbody>
             {% for produkt in produkty %}
-            <tr style="vertical-align: middle;">
+            <tr onclick="window.location.href='{% url "produkt_editovat" produkt.id %}';"
+            style="cursor:pointer; vertical-align: middle;">
                 <td scope="row">{{ produkt.id }}</td>
                 <th>{{ produkt.nazev }}</th>
                 <td>{{ produkt.predmet_kryti }}</td>

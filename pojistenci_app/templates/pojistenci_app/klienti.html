@@ -48,7 +48,8 @@ Klienti
                 <td>{{ klient.jmeno }} {{ klient.prijmeni }}</td>
                 <td>{{ klient.narozeni|date:"d.m.Y" }}</td>
                 <td>{{ klient.datum_registrace|date:"d.m.Y" }}</td>
-                <td>
+                <td width="250">
+                    <a class="btn btn-primary btn-sm" href={% url "klient_detail" klient.id %}>detail</a>
                     <a class="btn btn-dark btn-sm" href={% url "klient_editovat" klient.id %}>editovat</a>
                     <a class="btn btn-danger btn-sm" href={% url "klient_vymazat_podle_id" klient.id %}>smazat</a>
             </tr>
