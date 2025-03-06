@@ -13,9 +13,11 @@
 {% comment %} smlouvy,  inkaso_celkem {% endcomment %}
 {% block content %}
 <div class="container-md">
-    <h1 class="text-center pt-4 bg-light mb-0">SMLOUVY</h1>
-    <div class="bg-light p-3 mb-4 d-flex gap-3 justify-content-center rounded-bottom">
-    <p class="lead">Měsíční inkaso: <b>{{ inkaso_celkem.cena__sum }} kč</b></p>
+    <div class="bg-light rounded-bottom mb-5">
+        <h1 class="text-center pt-3">SMLOUVY</h1>
+        <div class="d-flex justify-content-center my-4 pb-2">
+        <p class="lead">Měsíční inkaso: <b>{{ inkaso_celkem.cena__sum }} kč</b></p>
+        </div>
     </div>
 
     <h3 class="mb-5">Všechny podepsané smlouvy</h3>

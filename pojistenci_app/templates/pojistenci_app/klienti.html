@@ -15,11 +15,13 @@ Klienti
 
 {% block content %}
     <div class="container-md">
-        <h1 class="text-center pt-4 bg-light mb-0">SPRÁVA KLIENTŮ</h1>
-        <div class="bg-light p-5 mb-5 d-flex gap-3 justify-content-center rounded-bottom">
-            <a class="btn btn-primary" href={% url "klienti" %}>Všichni klienti</a>
-            <a class="btn btn-success" href={% url "klient_pridat" %}>Přidat klienta</a>
-            <a class="btn btn-danger" href={% url "klient_vymazat" %}>Vymazat klienta</a>
+        <div class="bg-light rounded-bottom mb-5">
+            <h1 class="text-center pt-3 bg-light">SPRÁVA KLIENTŮ</h1>
+            <div class="py-3 d-flex gap-3 justify-content-center">
+                <a class="btn btn-primary" href={% url "klienti" %}>Všichni klienti</a>
+                <a class="btn btn-success" href={% url "klient_pridat" %}>Přidat klienta</a>
+                <a class="btn btn-danger" href={% url "klient_vymazat" %}>Vymazat klienta</a>
+            </div>
         </div>
         {% if pridat or editovat or vymazat %}
             {% block form %}
