@@ -28,8 +28,8 @@
                                    {% else %}id{% endif %}">č.smlouvy</a>
                 </th>
                 <th scope="col" class="bg-secondary">
-                    <a class="link-light" href="?sort={% if sort_param == 'pojistenec_id__prijmeni' %}-pojistenec_id__prijmeni
-                                   {% else %}pojistenec_id__prijmeni{% endif %}">Příjmení a jméno</a>
+                    <a class="link-light" href="?sort={% if sort_param == 'klient__prijmeni' %}-klient__prijmeni
+                                   {% else %}klient__prijmeni{% endif %}">Příjmení a jméno</a>
                 </th>
                 <th scope="col" class="bg-secondary">
                     <a class="link-light" href="?sort={% if sort_param == 'produkt_id__id' %}-produkt_id__id
@@ -53,9 +53,9 @@
         {% for smlouva in smlouvy %}
         <tr style="vertical-align: middle;">
             <td scope="row">{{ smlouva.id }}</td>
-            <td><b>{{ smlouva.pojistenec_id.prijmeni }} 
-                {{ smlouva.pojistenec_id.jmeno }}</b> ({{ smlouva.pojistenec_id.id }})</td>
-            <td>({{ smlouva.produkt_id.id }}) {{ smlouva.produkt_id.nazev }}</td>
+            <td><b>{{ smlouva.klient.prijmeni }} 
+                {{ smlouva.klient.jmeno }}</b> ({{ smlouva.klient.id }})</td>
+            <td>({{ smlouva.produkt.id }}) {{ smlouva.produkt.nazev }}</td>
             <td>{{ smlouva.castka_kryti }}</td>
             <td>{{ smlouva.cena }}</td>
             <td>{{ smlouva.datum|date:"d.m.Y" }}</td>

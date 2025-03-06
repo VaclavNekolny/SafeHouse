@@ -1,18 +1,17 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from pojistenci_app.models import Pojistenci, Produkty, Smlouvy, Historie
+from pojistenci_app.models import Klienti, Produkty, Smlouvy, Historie
 from django.db.models import Sum
 import random
 
 
 def index(request):
-    pojistenci = Pojistenci.objects.all()
-    return render(request, "pojistenci_app/index.html", {'pojistenci': pojistenci})
+    return render(request, "pojistenci_app/index.html")
 
 
 def produkty(request):
-    pojistovaci_produkty = Produkty.objects.all()
-    return render(request, 'pojistenci_app/produkty.html', {'produkty': pojistovaci_produkty})
+    produkty = Produkty.objects.all()
+    return render(request, 'pojistenci_app/produkty.html', {'produkty': produkty})
 
 
 def produkt_pridat(request):
@@ -29,9 +28,9 @@ def produkt_pridat(request):
 
         # Záznam do historie
         id = novy_produkt.id
-        produkt = novy_produkt.nazev
-        detail_akce = f"Přidání produktu {produkt}"
-        historie = Historie(produkt_id=id, produkt=produkt,
+        produkt_str = novy_produkt.nazev
+        detail_akce = f"Přidání produktu {produkt_str}"
+        historie = Historie(produkt_id=id, produkt_str=produkt_str,
                             akce='Vytvoření', detail_akce=detail_akce)
         historie.save()
 
@@ -61,9 +60,9 @@ def produkt_editovat(request, edit_id):
 
         # Záznam do historie
         id = produkt_k_editaci.id
-        produkt = produkt_k_editaci.nazev
-        detail_akce = f"Editace pojištění {produkt}"
-        historie = Historie(produkt_id=id, produkt=produkt,
+        produkt_str = produkt_k_editaci.nazev
+        detail_akce = f"Editace pojištění {produkt_str}"
+        historie = Historie(produkt_id=id, produkt_str=produkt_str,
                             akce='Editace', detail_akce=detail_akce)
         historie.save()
 
@@ -79,9 +78,9 @@ def produkt_vymazat(request, del_produkt_id):
 
     # Záznam do historie
     id = produkt_k_vymazani.id
-    produkt = produkt_k_vymazani.nazev
-    detail_akce = f"Vymazání produktu '{produkt}'"
-    historie = Historie(produkt_id=id, produkt=produkt,
+    produkt_str = produkt_k_vymazani.nazev
+    detail_akce = f"Vymazání produktu '{produkt_str}'"
+    historie = Historie(produkt_id=id, produkt_str=produkt_str,
                         akce='Smazání', detail_akce=detail_akce)
     historie.save()
 
@@ -90,13 +89,13 @@ def produkt_vymazat(request, del_produkt_id):
 
 
 def klienti(request):
-    vsichni_klienti = Pojistenci.objects.all()
+    vsichni_klienti = Klienti.objects.all()
     return render(request, 'pojistenci_app/klienti.html', {'klienti': vsichni_klienti})
 
 
 def klient_detail(request, id_klienta):
-    klient = Pojistenci.objects.get(id=id_klienta)
-    smlouvy_klienta = Smlouvy.objects.filter(pojistenec_id__id=id_klienta)
+    klient = Klienti.objects.get(id=id_klienta)
+    smlouvy_klienta = Smlouvy.objects.filter(klient__id=id_klienta)
     celkem_mesicne = smlouvy_klienta.aggregate(Sum('cena'))
     return render(request, 'pojistenci_app/klient_smlouvy.html', {'klient': klient, 'smlouvy': smlouvy_klienta, 'celkem_mesicne': celkem_mesicne})
 
@@ -116,15 +115,15 @@ def klient_pridat(request):
             je_muz = False
 
         # Uložení do databáze
-        novy_klient = Pojistenci(jmeno=jmeno, prijmeni=prijmeni,
-                                 narozeni=narozeni, foto=foto, je_muz=je_muz)
+        novy_klient = Klienti(jmeno=jmeno, prijmeni=prijmeni,
+                              narozeni=narozeni, foto=foto, je_muz=je_muz)
         novy_klient.save()
 
         # Záznam do historie
         id = novy_klient.id
-        klient = jmeno + " " + prijmeni
+        klient_str = jmeno + " " + prijmeni
         detail_akce = f"Přidání klienta {jmeno} {prijmeni}"
-        historie = Historie(pojistenec_id=id, pojistenec=klient,
+        historie = Historie(klient_id=id, klient_str=klient_str,
                             akce='Vytvoření', detail_akce=detail_akce)
         historie.save()
 
@@ -136,20 +135,20 @@ def klient_pridat(request):
 
 def klient_vymazat(request):
 
-    klienti = Pojistenci.objects.all()
+    klienti = Klienti.objects.all()
 
     if request.method == "POST":
         id = request.POST["klient_id"]
-        klient_ke_smazani = Pojistenci.objects.get(id=id)
+        klient_ke_smazani = Klienti.objects.get(id=id)
 
         jmeno = klient_ke_smazani.jmeno
         prijmeni = klient_ke_smazani.prijmeni
 
         # Záznam do historie
         id = klient_ke_smazani.id
-        klient = jmeno + " " + prijmeni
+        klient_str = jmeno + " " + prijmeni
         detail_akce = f"Smazání klienta {jmeno} {prijmeni}"
-        historie = Historie(pojistenec_id=id, pojistenec=klient,
+        historie = Historie(klient_id=id, klient_str=klient_str,
                             akce='Smazání', detail_akce=detail_akce)
         historie.save()
 
@@ -162,15 +161,15 @@ def klient_vymazat(request):
 
 
 def klient_vymazat_podle_id(request, klient_id):
-    klient_ke_smazani = Pojistenci.objects.get(id=klient_id)
+    klient_ke_smazani = Klienti.objects.get(id=klient_id)
 
     # Záznam do historie
     jmeno = klient_ke_smazani.jmeno
     prijmeni = klient_ke_smazani.prijmeni
     id = klient_ke_smazani.id
-    klient = jmeno + " " + prijmeni
+    klient_str = jmeno + " " + prijmeni
     detail_akce = f"Smazání klienta {jmeno} {prijmeni}"
-    historie = Historie(pojistenec_id=id, pojistenec=klient,
+    historie = Historie(klient_id=id, klient_str=klient_str,
                         akce='Smazání', detail_akce=detail_akce)
     historie.save()
 
@@ -181,8 +180,7 @@ def klient_vymazat_podle_id(request, klient_id):
 def klient_editovat(request, klient_id):
 
     if request.method == "POST":
-        id = request.POST["id"]
-        klient_k_editaci = Pojistenci.objects.get(id=id)
+        klient_k_editaci = Klienti.objects.get(id=klient_id)
         jmeno = request.POST["jmeno"]
         prijmeni = request.POST["prijmeni"]
         narozeni = request.POST["datum_narozeni"]
@@ -205,17 +203,16 @@ def klient_editovat(request, klient_id):
         klient_k_editaci.save()
 
         # Záznam do historie
-        id = klient_k_editaci.id
-        klient = jmeno + " " + prijmeni
+        klient_str = jmeno + " " + prijmeni
         detail_akce = f"Editace klienta {jmeno} {prijmeni}"
-        historie = Historie(pojistenec_id=id, pojistenec=klient,
+        historie = Historie(klient_id=klient_id, klient_str=klient_str,
                             akce='Editace', detail_akce=detail_akce)
         historie.save()
 
         message = f"Klient {jmeno} {prijmeni} editován"
         return render(request, 'pojistenci_app/klient_editovat.html', {'message': message, 'editovat': True})
 
-    klient_k_editaci = Pojistenci.objects.get(id=klient_id)
+    klient_k_editaci = Klienti.objects.get(id=klient_id)
     return render(request, 'pojistenci_app/klient_editovat.html', {'editovat': True, 'klient': klient_k_editaci})
 
 
@@ -232,11 +229,12 @@ def smlouvy(request):
 
 
 def smlouva_nova(request, klient_id):
-    klient = Pojistenci.objects.get(id=klient_id)
+    klient = Klienti.objects.get(id=klient_id)
     if request.method == "POST":
         id_produktu = request.POST["produkty_id"]
         produkt = Produkty.objects.get(id=id_produktu)
         return render(request, 'pojistenci_app/produkt_vybrany.html', {'produkt': produkt, 'klient': klient})
+    
     produkty = Produkty.objects.all()
     return render(request, 'pojistenci_app/smlouva_nova.html', {'produkty': produkty,
                                                                 'klient': klient})
@@ -249,9 +247,9 @@ def smlouva_podepsat(request, klient_id):
 
     # Vypočítá cenu pojištění z čáskty krytí a poměru, který se uložil do databáze při vytváření projektu
     cena_pojisteni = round(int(castka_kryti) / produkt.pomer)
-    klient = Pojistenci.objects.get(id=klient_id)
+    klient = Klienti.objects.get(id=klient_id)
 
-    nova_smlouva = Smlouvy(pojistenec_id=klient, produkt_id=produkt,
+    nova_smlouva = Smlouvy(klient=klient, produkt=produkt,
                            castka_kryti=castka_kryti, cena=cena_pojisteni)
     nova_smlouva.save()
 
@@ -259,10 +257,10 @@ def smlouva_podepsat(request, klient_id):
     produkt_id = produkt.id
     smlouva_id = nova_smlouva.id
     klient_str = klient.prijmeni + " " + klient.jmeno
-    produkt = produkt.nazev
-    detail_akce = f"{klient_str} podepsal smlouvu {produkt}"
-    historie = Historie(pojistenec_id=klient_id, produkt_id=produkt_id,
-                        smlouva_id=smlouva_id, pojistenec=klient_str, produkt=produkt,
+    produkt_str = produkt.nazev
+    detail_akce = f"{klient_str} podepsal smlouvu {produkt_str}"
+    historie = Historie(klient_id=klient_id, produkt_id=produkt_id,
+                        smlouva_id=smlouva_id, klient_str=klient_str, produkt_str=produkt_str,
                         akce='Podpis', detail_akce=detail_akce)
     historie.save()
 
@@ -273,14 +271,14 @@ def smlouva_vymazat(request, klient_id, smlouva_id):
     smlouva_k_vymazani = Smlouvy.objects.get(id=smlouva_id)
 
     # Záznam do historie
-    produkt_id = smlouva_k_vymazani.produkt_id.id
+    produkt_id = smlouva_k_vymazani.produkt.id
     smlouva_id = smlouva_k_vymazani.id
-    klient_str = smlouva_k_vymazani.pojistenec_id.prijmeni + \
-        " " + smlouva_k_vymazani.pojistenec_id.jmeno
-    produkt = smlouva_k_vymazani.produkt_id.nazev
-    detail_akce = f"{klient_str} vypověděl smlouvu {produkt}"
-    historie = Historie(pojistenec_id=klient_id, produkt_id=produkt_id,
-                        smlouva_id=smlouva_id, pojistenec=klient_str, produkt=produkt,
+    klient_str = smlouva_k_vymazani.klient.prijmeni + \
+        " " + smlouva_k_vymazani.klient.jmeno
+    produkt_str = smlouva_k_vymazani.produkt.nazev
+    detail_akce = f"{klient_str} vypověděl smlouvu {produkt_str}"
+    historie = Historie(klient_id=klient_id, produkt_id=produkt_id,
+                        smlouva_id=smlouva_id, klient_str=klient_str, produkt_str=produkt_str,
                         akce='Výpověď', detail_akce=detail_akce)
     historie.save()
 
