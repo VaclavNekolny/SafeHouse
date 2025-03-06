@@ -15,7 +15,7 @@ def produkty(request):
     return render(request, 'pojistenci_app/produkty.html', {'produkty': pojistovaci_produkty})
 
 
-def pridat_produkt(request):
+def produkt_pridat(request):
     if request.method == "POST":
         nazev = request.POST["nazev"]
         predmet_kryti = request.POST["predmet_kryti"]
@@ -36,12 +36,12 @@ def pridat_produkt(request):
         historie.save()
 
         message = f"Produkt '{nazev}' přidán do databáze"
-        return render(request, 'pojistenci_app/pridat_produkt.html', {'message': message, 'pridat': True})
+        return render(request, 'pojistenci_app/produkt_pridat.html', {'message': message, 'pridat': True})
 
-    return render(request, 'pojistenci_app/pridat_produkt.html', {'pridat': True})
+    return render(request, 'pojistenci_app/produkt_pridat.html', {'pridat': True})
 
 
-def editovat_produkt(request, edit_id):
+def produkt_editovat(request, edit_id):
 
     if request.method == "POST":
         id = request.POST["id"]
@@ -68,13 +68,13 @@ def editovat_produkt(request, edit_id):
         historie.save()
 
         message = f"Produkt '{nazev}' editován"
-        return render(request, 'pojistenci_app/editovat_produkt.html', {'message': message, 'editovat': True})
+        return render(request, 'pojistenci_app/produkt_editovat.html', {'message': message, 'editovat': True})
 
     produkt_k_editaci = Produkty.objects.get(id=edit_id)
-    return render(request, 'pojistenci_app/editovat_produkt.html', {'editovat': True, 'produkt': produkt_k_editaci})
+    return render(request, 'pojistenci_app/produkt_editovat.html', {'editovat': True, 'produkt': produkt_k_editaci})
 
 
-def vymazat_produkt(request, del_produkt_id):
+def produkt_vymazat(request, del_produkt_id):
     produkt_k_vymazani = Produkty.objects.get(id=del_produkt_id)
 
     # Záznam do historie
@@ -219,68 +219,7 @@ def klient_editovat(request, klient_id):
     return render(request, 'pojistenci_app/klient_editovat.html', {'editovat': True, 'klient': klient_k_editaci})
 
 
-def nova_smlouva(request, klient_id):
-    pojistenec = Pojistenci.objects.get(id=klient_id)
-    if request.method == "POST":
-        id_produktu = request.POST["produkty_id"]
-        produkt = Produkty.objects.get(id=id_produktu)
-        return render(request, 'pojistenci_app/vybrany_produkt.html', {'produkt': produkt, 'pojistenec': pojistenec})
-    produkty = Produkty.objects.all()
-    return render(request, 'pojistenci_app/nova_smlouva.html', {'produkty': produkty,
-                                                                'pojistenec': pojistenec})
-
-
-def podepsat(request, klient_id):
-
-    produkt_id = request.POST["produkt_id"]
-    pojistenec_id = request.POST["pojistenec_id"]
-    castka_kryti = request.POST["castka_kryti"]
-
-    produkt = Produkty.objects.get(id=produkt_id)
-
-    cena_pojisteni = round(int(castka_kryti) / produkt.pomer)
-
-    pojistenec = Pojistenci.objects.get(id=pojistenec_id)
-
-    nova_smlouva = Smlouvy(pojistenec_id=pojistenec, produkt_id=produkt,
-                           castka_kryti=castka_kryti, cena=cena_pojisteni)
-    nova_smlouva.save()
-
-    # Záznam do historie
-    pojistenec_id = pojistenec.id
-    produkt_id = produkt.id
-    smlouva_id = nova_smlouva.id
-    pojistenec = pojistenec.prijmeni + " " + pojistenec.jmeno
-    produkt = produkt.nazev
-    detail_akce = f"{pojistenec} podepsal smlouvu {produkt}"
-    historie = Historie(pojistenec_id=pojistenec_id, produkt_id=produkt_id,
-                        smlouva_id=smlouva_id, pojistenec=pojistenec, produkt=produkt,
-                        akce='Podpis', detail_akce=detail_akce)
-    historie.save()
-
-    return redirect('detail_pojistence', klient_id)
-
-
-def vymazat_smlouvu(request, klient_id, delete_id):
-    smlouva_k_vymazani = Smlouvy.objects.get(id=delete_id)
-
-    # Záznam do historie
-    pojistenec_id = smlouva_k_vymazani.pojistenec_id.id
-    produkt_id = smlouva_k_vymazani.produkt_id.id
-    smlouva_id = smlouva_k_vymazani.id
-    pojistenec = smlouva_k_vymazani.pojistenec_id.prijmeni + \
-        " " + smlouva_k_vymazani.pojistenec_id.jmeno
-    produkt = smlouva_k_vymazani.produkt_id.nazev
-    detail_akce = f"{pojistenec} vypověděl smlouvu {produkt}"
-    historie = Historie(pojistenec_id=pojistenec_id, produkt_id=produkt_id,
-                        smlouva_id=smlouva_id, pojistenec=pojistenec, produkt=produkt,
-                        akce='Výpověď', detail_akce=detail_akce)
-    historie.save()
-
-    smlouva_k_vymazani.delete()
-
-    return redirect(reverse('detail_pojistence', kwargs={'id_klienta': klient_id}))
-
+# SMLOUVY (klient-produkt)
 
 def smlouvy(request):
     sort_param = request.GET.get("sort", "id")
@@ -290,6 +229,64 @@ def smlouvy(request):
     return render(request, 'pojistenci_app/smlouvy.html', {'smlouvy': smlouvy,
                                                            'inkaso_celkem': inkaso_celkem,
                                                            'sort_param': sort_param})
+
+
+def smlouva_nova(request, klient_id):
+    klient = Pojistenci.objects.get(id=klient_id)
+    if request.method == "POST":
+        id_produktu = request.POST["produkty_id"]
+        produkt = Produkty.objects.get(id=id_produktu)
+        return render(request, 'pojistenci_app/produkt_vybrany.html', {'produkt': produkt, 'klient': klient})
+    produkty = Produkty.objects.all()
+    return render(request, 'pojistenci_app/smlouva_nova.html', {'produkty': produkty,
+                                                                'klient': klient})
+
+
+def smlouva_podepsat(request, klient_id):
+    produkt_id = request.POST["produkt_id"]
+    castka_kryti = request.POST["castka_kryti"]
+    produkt = Produkty.objects.get(id=produkt_id)
+
+    # Vypočítá cenu pojištění z čáskty krytí a poměru, který se uložil do databáze při vytváření projektu
+    cena_pojisteni = round(int(castka_kryti) / produkt.pomer)
+    klient = Pojistenci.objects.get(id=klient_id)
+
+    nova_smlouva = Smlouvy(pojistenec_id=klient, produkt_id=produkt,
+                           castka_kryti=castka_kryti, cena=cena_pojisteni)
+    nova_smlouva.save()
+
+    # Záznam do historie
+    produkt_id = produkt.id
+    smlouva_id = nova_smlouva.id
+    klient_str = klient.prijmeni + " " + klient.jmeno
+    produkt = produkt.nazev
+    detail_akce = f"{klient_str} podepsal smlouvu {produkt}"
+    historie = Historie(pojistenec_id=klient_id, produkt_id=produkt_id,
+                        smlouva_id=smlouva_id, pojistenec=klient_str, produkt=produkt,
+                        akce='Podpis', detail_akce=detail_akce)
+    historie.save()
+
+    return redirect('klient_detail', klient_id)
+
+
+def smlouva_vymazat(request, klient_id, smlouva_id):
+    smlouva_k_vymazani = Smlouvy.objects.get(id=smlouva_id)
+
+    # Záznam do historie
+    produkt_id = smlouva_k_vymazani.produkt_id.id
+    smlouva_id = smlouva_k_vymazani.id
+    klient_str = smlouva_k_vymazani.pojistenec_id.prijmeni + \
+        " " + smlouva_k_vymazani.pojistenec_id.jmeno
+    produkt = smlouva_k_vymazani.produkt_id.nazev
+    detail_akce = f"{klient_str} vypověděl smlouvu {produkt}"
+    historie = Historie(pojistenec_id=klient_id, produkt_id=produkt_id,
+                        smlouva_id=smlouva_id, pojistenec=klient_str, produkt=produkt,
+                        akce='Výpověď', detail_akce=detail_akce)
+    historie.save()
+
+    smlouva_k_vymazani.delete()
+
+    return redirect(reverse('klient_detail', kwargs={'id_klienta': klient_id}))
 
 
 def historie(request):

@@ -10,11 +10,11 @@ urlpatterns = [
     path('produkty',
          views.produkty, name="produkty"),
     path('produkty/pridat',
-         views.pridat_produkt, name="pridat_produkt"),
+         views.produkt_pridat, name="produkt_pridat"),
     path('produkty/editovat/<int:edit_id>',
-         views.editovat_produkt, name="editovat_produkt"),
+         views.produkt_editovat, name="produkt_editovat"),
     path('produkty/vymazat/<int:del_produkt_id>',
-         views.vymazat_produkt, name="vymazat_produkt"),
+         views.produkt_vymazat, name="produkt_vymazat"),
 
     # KLIENTI
     path('klienti', views.klienti, name="klienti"),
@@ -32,11 +32,11 @@ urlpatterns = [
 
     # KLIENTI-SMLOUVY
     path('klienti/<int:klient_id>/nova_smlouva',
-         views.nova_smlouva, name="nova_smlouva"),
+         views.smlouva_nova, name="smlouva_nova"),
     path('klienti/<int:klient_id>/podepsat',
-         views.podepsat, name="podepsat"),
-    path('klienti/<int:klient_id>/vymazat/<int:delete_id>',
-         views.vymazat_smlouvu, name="vymazat_smlouvu"),
+         views.smlouva_podepsat, name="smlouva_podepsat"),
+    path('klienti/<int:klient_id>/vymazat/<int:smlouva_id>',
+         views.smlouva_vymazat, name="smlouva_vymazat"),
 
 
     # SMLOUVY

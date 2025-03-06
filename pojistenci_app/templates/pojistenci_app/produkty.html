@@ -15,7 +15,7 @@ Pojištění
         <h1 class="text-center pt-4 bg-light mb-0">SPRÁVA PRODUKTŮ</h1>
         <div class="bg-light p-5 mb-5 d-flex gap-3 justify-content-center rounded-bottom">
             <a class="btn btn-primary" href={% url "produkty" %}>Všechny produkty</a>
-            <a class="btn btn-success" href={% url "pridat_produkt" %}>Přidat produkt</a>
+            <a class="btn btn-success" href={% url "produkt_pridat" %}>Přidat produkt</a>
         </div>
         {% if pridat or editovat or vymazat %}
             {% block form %}
@@ -44,8 +44,8 @@ Pojištění
                 <td>{{ produkt.zakladni_cena }}</td>
                 <td>{{ produkt.pomer }}</td>
                 <td>
-                    <a class="btn btn-dark btn-sm" href={% url "editovat_produkt" produkt.id %}>editovat</a>
-                    <a class="btn btn-danger btn-sm" href={% url "vymazat_produkt" produkt.id %}>smazat</a>
+                    <a class="btn btn-dark btn-sm" href={% url "produkt_editovat" produkt.id %}>editovat</a>
+                    <a class="btn btn-danger btn-sm" href={% url "produkt_vymazat" produkt.id %}>smazat</a>
                 </td>
             </tr>
             {% endfor %}

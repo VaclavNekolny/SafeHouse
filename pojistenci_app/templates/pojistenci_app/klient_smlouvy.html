@@ -24,7 +24,7 @@
                 <td>{{ smlouva.cena }} kč</td>
                 <td>{{ smlouva.datum }}</td>
                 <td>
-                    <a class="btn btn-danger" href={% url 'vymazat_smlouvu' klient.id smlouva.id %}>smazat</a>
+                    <a class="btn btn-danger" href={% url 'smlouva_vymazat' klient.id smlouva.id %}>smazat</a>
             </tr>
             {% endfor %}
             <tr style="vertical-align: middle;">

@@ -1,4 +1,4 @@
-{% extends "pojistenci_app/detail_pojistence.html" %}
+{% extends "pojistenci_app/klient_detail.html" %}
 {% load static %}
 
 {% block content_bottom %}
@@ -10,7 +10,7 @@
 <form action="podepsat" method="post">
     {% csrf_token %}
     <input type="hidden" name="produkt_id" value={{ produkt.id }}>
-    <input type="hidden" name="pojistenec_id" value={{ pojistenec.id }}>
+    <input type="hidden" name="klient_id" value={{ klient.id }}>
     <div class="mb-3">
         <label for="castka_kryti" class="form-label">Základní částka</label>
         <input type="number" class="form-control" id="castka" name="castka_kryti" value={{ produkt.zakladni_castka }} required>

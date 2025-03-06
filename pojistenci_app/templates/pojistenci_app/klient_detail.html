@@ -27,7 +27,7 @@ Pojištěnec: {{ klient.jmeno }} {{ klient.prijmeni }}
                     <p class="lead">Datum registrace: {{ klient.datum_registrace|date:"d.m.Y" }}</p>
                     <div class="d-flex gap-3">
                         <a class="btn btn-primary btn-sm mt-2" href={% url "klient_detail" klient.id %}>Všechny smlouvy</a>
-                        <a class="btn btn-success btn-sm mt-2" href={% url "nova_smlouva" klient.id %}>Nová smlouva</a>
+                        <a class="btn btn-success btn-sm mt-2" href={% url "smlouva_nova" klient.id %}>Nová smlouva</a>
                     </div>
                 </div>
             </div>
