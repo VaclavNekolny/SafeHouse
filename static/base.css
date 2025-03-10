@@ -14,7 +14,8 @@ body {
     min-height: 100vh;
 }
 
-#about_foto {
-    position:relative;
-    top: -100px;
+#about_foto_wrapper {
+    position: absolute;
+    top: 85px;
+    display: none;
 }

@@ -1,0 +1,50 @@
+{% load static %}
+<div class="d-flex flex-row justify-content-center gap-3 position-relative">
+    <button class="btn btn-outline-success" type="button" onclick="changeContent(1)" style="width: 190px;">
+        O aplikaci SafeHouse
+    </button>
+    <button class="btn btn-outline-success" type="button" onclick="changeContent(2)" style="width: 190px;">
+        Funkce aplikace
+    </button>
+    <button class="btn btn-outline-success" type="button" onclick="changeContent(3)" style="width: 190px;">
+        O tvůrci
+    </button>
+
+    <!-- Obrázek, který se zobrazí jen při kliknutí na třetí tlačítko -->
+    <div id="about_foto_wrapper">
+        <img id="about_foto" src="{% static 'pojistenci_app/pictures/vaclav_nekolny.png' %}" width="250">
+    </div>
+</div>
+
+<style>
+    #about_foto_wrapper {
+        position: absolute;
+        bottom: 100%;
+        transform: translate(0, 0);
+        display: none;
+    }
+</style>
+
+<script>
+    function changeContent(option) {
+        const content = document.getElementById("dynamicContent");
+        const collapseElement = new bootstrap.Collapse(document.getElementById("collapseContent"), { toggle: false });
+        const collapseDiv = document.getElementById("collapseContent");
+        const imageWrapper = document.getElementById("about_foto_wrapper");
+
+        if (option === 1) {
+            content.innerHTML = "Informace o aplikaci SafeHouse.";
+            imageWrapper.style.display = "none";
+        } else if (option === 2) {
+            content.innerHTML = "Přehled funkcí aplikace.";
+            imageWrapper.style.display = "none";
+        } else if (option === 3) {
+            content.innerHTML = "O tvůrci aplikace.";
+            imageWrapper.style.display = "block"; // Zobrazíme obrázek
+        }
+
+        if (!collapseDiv.classList.contains("show")) {
+            collapseElement.show();
+        }
+    }
+</script>
