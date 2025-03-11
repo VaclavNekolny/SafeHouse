@@ -1,4 +1,4 @@
-let lastOpened = null; // Uchovává poslední otevřený obsah
+let lastOpened = null;
 
 function changeContent(option) {
   const content = document.getElementById("dynamicContent");
@@ -47,22 +47,10 @@ function changeContent(option) {
   // Změna obsahu podle tlačítka
   if (option === 1) {
     content.innerHTML = o_aplikaci;
-    imageWrapper.style.display = "none";
-    heroDiv.style.filter = "none";
   } else if (option === 2) {
     content.innerHTML = funkce_aplikace;
-    imageWrapper.style.display = "none";
-    heroDiv.style.filter = "none";
   } else if (option === 3) {
     content.innerHTML = o_tvurci;
-
-    if (!collapseDiv.classList.contains("show")) {
-      imageWrapper.style.display = "none";
-      heroDiv.style.filter = "none";
-    } else {
-      imageWrapper.style.display = "block";
-      heroDiv.style.filter = "blur(5px)";
-    }
   }
 
   // Uložení posledního tlačítka
@@ -73,3 +61,16 @@ function changeContent(option) {
     collapseElement.show();
   }
 }
+
+
+// Připravená funkce pro zobrazení profilového obrázku nad rozmazaným logem
+
+// function ProfilePicture() {
+//   if (!collapseDiv.classList.contains("show")) {
+//     imageWrapper.style.display = "none";
+//     heroDiv.style.filter = "none";
+//   } else {
+//     imageWrapper.style.display = "block";
+//     heroDiv.style.filter = "blur(5px)";
+//   }
+// }
