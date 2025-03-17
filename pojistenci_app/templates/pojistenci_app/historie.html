@@ -41,6 +41,9 @@
         <tbody>
         {% for zaznam in historie %}
             <tr
+            {% comment %} 
+            Podbarvení řádku podle typu akce 
+            {% endcomment %}
             {% if zaznam.akce == "Vytvoření" %} class="vytvoreni"
             {% elif zaznam.akce == "Editace" %} class="editace"
             {% elif zaznam.akce == "Smazání" %} class="smazani"
@@ -48,11 +51,11 @@
             {% elif zaznam.akce == "Výpověď" %} class="vypoved"
             {% endif %}
                 style="vertical-align: middle;">
-                    <td scope="row">{{ zaznam.pojistenec_id|default:"-" }}</td>
+                    <td scope="row">{{ zaznam.klient_id|default:"-" }}</td>
                     <td>{{ zaznam.produkt_id|default:"-" }}</td>
                     <td>{{ zaznam.smlouva_id|default:"-" }}</td>
-                    <td>{{ zaznam.pojistenec|default:"--" }}</td>
-                    <td>{{ zaznam.produkt|default:"--" }}</td>
+                    <td>{{ zaznam.klient_str|default:"--" }}</td>
+                    <td>{{ zaznam.produkt_str|default:"--" }}</td>
                     <td>{{ zaznam.akce|default:"--" }}</td>
                     <td>{{ zaznam.detail_akce|default:"--" }}</td>
                     <td>{{ zaznam.datum_cas|date:"d.m.Y" }}</td>
