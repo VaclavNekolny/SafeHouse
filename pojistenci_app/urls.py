@@ -47,4 +47,10 @@ urlpatterns = [
     # HISTORIE
     path('historie',
          views.historie, name="historie"),
+ 
+
+    # NEDOSTUPNÉ
+    path('nedostupne',
+         views.nedostupne, name="nedostupne"),
+
 ]

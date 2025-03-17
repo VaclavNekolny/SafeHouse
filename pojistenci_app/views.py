@@ -234,7 +234,7 @@ def smlouva_nova(request, klient_id):
         id_produktu = request.POST["produkty_id"]
         produkt = Produkty.objects.get(id=id_produktu)
         return render(request, 'pojistenci_app/produkt_vybrany.html', {'produkt': produkt, 'klient': klient})
-    
+
     produkty = Produkty.objects.all()
     return render(request, 'pojistenci_app/smlouva_nova.html', {'produkty': produkty,
                                                                 'klient': klient})
@@ -290,3 +290,7 @@ def smlouva_vymazat(request, klient_id, smlouva_id):
 def historie(request):
     historie = Historie.objects.all().order_by('-datum_cas')
     return render(request, 'pojistenci_app/historie.html', {'historie': historie})
+
+
+def nedostupne(request):
+    return render(request, 'pojistenci_app/nedostupne.html')
