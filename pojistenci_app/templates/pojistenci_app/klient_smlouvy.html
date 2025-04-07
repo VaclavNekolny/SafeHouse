@@ -18,8 +18,8 @@
             {% for smlouva in smlouvy %}
             <tr style="vertical-align: middle;">
                 <th scope="row">{{ smlouva.id }}</th>
-                <td>{{ smlouva.produkt_id.nazev }}</td>
-                <td>{{ smlouva.produkt_id.predmet_kryti }}</td>
+                <td>{{ smlouva.produkt.nazev }}</td>
+                <td>{{ smlouva.produkt.predmet_kryti }}</td>
                 <td>{{ smlouva.castka_kryti }}</td>
                 <td>{{ smlouva.cena }} kč</td>
                 <td>{{ smlouva.datum }}</td>
