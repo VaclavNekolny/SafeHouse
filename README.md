@@ -7,9 +7,11 @@ Slouží jako ukázkový projekt pro správu klientů a pojišťovacích produkt
 
 ## ✨ Funkcionality
 
-- **CRUD správa klientů**  
-- **CRUD správa pojišťovacích produktů**  
-- Zobrazení **detailů klientů** a jejich podepsaných smluv  
+- Sekce **Produkty**
+  - CRUD správa pojišťovacích produktů     
+- Sekce **Klienti**
+  - CRUD správa klientů
+  - Zobrazení **detailů klientů** a jejich podepsaných smluv  
 - Sekce **Smlouvy**:  
   - přehled všech podepsaných smluv  
   - zobrazení celkového **měsíčního inkasa pojišťovny**  
@@ -28,14 +30,16 @@ https://github.com/VaclavNekolny/SafeHouse.git
 cd safehouse
 ```
 
-### 2.Instalace
+### 2. Instalace
 ``` bash
-python -m venv venv
-source venv/bin/activate
+python3 -m venv venv
+source venv/bin/activate   # Linux / macOS
+venv\Scripts\activate      # Windows
 pip install -r requirements.txt
 ```
-### 3.Spuštění
+### 3. Spuštění
 ``` bash
 python manage.py runserver
 ```
+- otevřít v prohlížeči: http://127.0.0.1:8000/
 
