@@ -1,0 +1,18 @@
+{% extends "safehouse_app/klient_detail.html" %}
+
+{% block content_bottom %}
+    <div class="container-md">
+        <h1>NOVÁ SMLOUVA</h1>
+        <form action="" method="post" class="mb-3">
+            {% csrf_token %}
+                <div class="input-group">
+                    <select class="custom-select px-3 py-2 rounded-start" id="produkty_id" name="produkty_id">
+                        {% for produkt in produkty %}
+                            <option value={{ produkt.id }}>{{ produkt.nazev }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-outline-success" type="submit">Vyber produkt</button>
+                </div>
+        </form>
+    </div>
+{% endblock content_bottom %}

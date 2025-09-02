@@ -1,0 +1,27 @@
+{% extends "safehouse_app/klient_detail.html" %}
+{% load static %}
+
+{% block content_bottom %}
+<h2>Název</h2>
+<p class="lead">{{ produkt.nazev }}</p>
+<h2>Předmět krytí</h2>
+<p class="lead">{{ produkt.predmet_kryti }}</p>
+
+<form action="podepsat" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="produkt_id" value={{ produkt.id }}>
+    <input type="hidden" name="klient_id" value={{ klient.id }}>
+    <div class="mb-3">
+        <label for="castka_kryti" class="form-label">Základní částka</label>
+        <input type="number" class="form-control" id="castka" name="castka_kryti" value={{ produkt.zakladni_castka }} required>
+        <input type="hidden" id ="pomer" name="pomer" value={{ produkt.pomer }}>
+    </div>
+    <div>
+        <p id="cena"></p>
+    </div>
+
+    <button type="submit" class="btn btn-success">Podepsat smlouvu</button>
+</form>
+
+<script src={% static "safehouse_app/js/dynamicky_vypocet_ceny.js" %}></script>
+{% endblock content_bottom %}
