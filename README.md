@@ -4,9 +4,13 @@
 
 🎥 **[Video ukázka](https://youtu.be/OWsMLuW-vfE)**
 
-![](media/safe_house_1.png)
+<style>
+a { text-decoration: none;}
+</style>
 
-
+<a href="media/safe_house_1.png" target="new"><img scr="media/safe_house_1.png" width="200"></a>
+<a href="media/safe_house_2.png" target="new"><img scr="media/safe_house_2.png" width="200"></a>
+<a href="media/safe_house_3.png" target="new"><img scr="media/safe_house_3.png" width="200"></a>
 
 ---
 
