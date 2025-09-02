@@ -3,11 +3,11 @@
 **SafeHouse** je fiktivní pojišťovací aplikace vytvořená v Django a slouží jako ukázkový projekt.
 
 🎥 **[Video ukázka](https://youtu.be/OWsMLuW-vfE)**
-
-<img src="media/safe_house_1.png" alt="Ukázka aplikace" width="200"/>
-<img src="media/safe_house_2.png" alt="Ukázka aplikace" width="200"/>
-<img src="media/safe_house_3.png" alt="Ukázka aplikace" width="200"/>
-
+<div>
+  <img src="media/safe_house_1.png" alt="Ukázka aplikace" width="200"/>
+  <img src="media/safe_house_2.png" alt="Ukázka aplikace" width="200"/>
+  <img src="media/safe_house_3.png" alt="Ukázka aplikace" width="200"/>
+</div>
 ---
 
 ## 🚀 Jak projekt spustit
