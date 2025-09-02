@@ -4,9 +4,9 @@
 
 🎥 **[Video ukázka](https://youtu.be/OWsMLuW-vfE)**
 <div style="display:flex; justify-content:space_around;">
-  <img src="media/safe_house_1.png" alt="Ukázka aplikace" height="200"/>
-  <img src="media/safe_house_2.png" alt="Ukázka aplikace" height="200"/>
-  <img src="media/safe_house_3.png" alt="Ukázka aplikace" height="200"/>
+  <img src="media/safe_house_1.png" alt="Ukázka aplikace" width="200"/>
+  <img src="media/safe_house_2.png" alt="Ukázka aplikace" width="200"/>
+  <img src="media/safe_house_3.png" alt="Ukázka aplikace" width="200"/>
 </div>
 ---
 
