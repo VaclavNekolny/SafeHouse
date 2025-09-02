@@ -2,9 +2,10 @@
 
 **SafeHouse** je fiktivní pojišťovací aplikace vytvořená v Django a slouží jako ukázkový projekt.
 
----
-
 video ukázka: https://youtube.com
+
+
+
 
 ---
 
