@@ -24,5 +24,18 @@ Slouží jako ukázkový projekt pro správu klientů a pojišťovacích produkt
 
 ### 1. Klonování repozitáře
 ```bash
-git clone https://github.com/tvoje-jmeno/safehouse.git
+https://github.com/VaclavNekolny/SafeHouse.git
 cd safehouse
+```
+
+### 2.Instalace
+``` bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+### 3.Spuštění
+``` bash
+python manage.py runserver
+```
+
