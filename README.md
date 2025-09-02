@@ -13,7 +13,7 @@ video ukázka: https://youtube.com
 
 ### 1. Klonování repozitáře
 ```bash
-https://github.com/VaclavNekolny/SafeHouse.git
+git clone https://github.com/VaclavNekolny/SafeHouse.git
 cd safehouse
 ```
 
