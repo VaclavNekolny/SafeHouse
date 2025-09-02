@@ -1,24 +1,10 @@
 # 🏠 SafeHouse
 
-**SafeHouse** je fiktivní pojišťovací aplikace vytvořená v Django.  
-Slouží jako ukázkový projekt pro správu klientů a pojišťovacích produktů.
+**SafeHouse** je fiktivní pojišťovací aplikace vytvořená v Django a slouží jako ukázkový projekt.
 
 ---
 
-## ✨ Funkcionality
-
-- Sekce **Produkty**
-  - CRUD správa pojišťovacích produktů     
-- Sekce **Klienti**
-  - CRUD správa klientů
-  - Zobrazení **detailů klientů** a jejich podepsaných smluv  
-- Sekce **Smlouvy**:  
-  - přehled všech podepsaných smluv  
-  - zobrazení celkového **měsíčního inkasa pojišťovny**  
-- Sekce **Historie**:  
-  - záznam všech událostí v aplikaci  
-  - vytvoření/úpravy/smazání klientů a smluv  
-  - přiřazení smlouvy ke klientovi  
+video ukázka: https://youtube.com
 
 ---
 
@@ -42,4 +28,23 @@ pip install -r requirements.txt
 python manage.py runserver
 ```
 - otevřít v prohlížeči: http://127.0.0.1:8000/
+
+---
+
+## ✨ Funkcionality
+
+- Sekce **Produkty**
+  - CRUD správa pojišťovacích produktů     
+- Sekce **Klienti**
+  - CRUD správa klientů
+  - Zobrazení **detailů klientů** a jejich podepsaných smluv  
+- Sekce **Smlouvy**:  
+  - přehled všech podepsaných smluv  
+  - zobrazení celkového **měsíčního inkasa pojišťovny**  
+- Sekce **Historie**:  
+  - záznam všech událostí v aplikaci  
+  - vytvoření/úpravy/smazání klientů a smluv  
+  - přiřazení smlouvy ke klientovi  
+
+---
 
