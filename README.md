@@ -4,7 +4,9 @@
 
 🎥 **[Video ukázka](https://youtu.be/OWsMLuW-vfE)**
 
-<img src="media/safe_house_1.png" alt="Ukázka aplikace" height="300"/>
+<img src="media/safe_house_1.png" alt="Ukázka aplikace" height="200"/>
+<img src="media/safe_house_2.png" alt="Ukázka aplikace" height="200"/>
+<img src="media/safe_house_3.png" alt="Ukázka aplikace" height="200"/>
 
 ---
 
