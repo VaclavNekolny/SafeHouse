@@ -4,11 +4,10 @@
 
 🎥 **[Video ukázka](https://youtu.be/OWsMLuW-vfE)**
 
-<div style="display:flex; justify-content:center; margin: 25px 0;">
-  <img src="media/safe_house_1.png" alt="Ukázka aplikace" width="200"/>
-  <img src="media/safe_house_2.png" alt="Ukázka aplikace" width="200"/>
-  <img src="media/safe_house_3.png" alt="Ukázka aplikace" width="200"/>
-</div>
+<img src="media/safe_house_1.png" alt="Ukázka aplikace" width="200"/>
+<img src="media/safe_house_2.png" alt="Ukázka aplikace" width="200"/>
+<img src="media/safe_house_3.png" alt="Ukázka aplikace" width="200"/>
+
 ---
 
 ## 🚀 Jak projekt spustit
