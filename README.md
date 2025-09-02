@@ -14,7 +14,7 @@ video ukázka: https://youtube.com
 ### 1. Klonování repozitáře
 ```bash
 git clone https://github.com/VaclavNekolny/SafeHouse.git
-cd safehouse
+cd SafeHouse
 ```
 
 ### 2. Instalace
