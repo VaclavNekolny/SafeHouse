@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Smlouvy
+{% endblock title %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'safehouse_app/smlouvy.css' %}">
+{% endblock styles %}
+
+{% comment %} smlouvy,  inkaso_celkem {% endcomment %}
+{% block content %}
+<div class="container-md">
+    <div class="bg-light rounded-bottom mb-5">
+        <h1 class="text-center pt-3">SMLOUVY</h1>
+        <div class="d-flex justify-content-center my-4 pb-2">
+        <p class="lead">Měsíční inkaso: <b>{{ inkaso_celkem.cena__sum }} kč</b></p>
+        </div>
+    </div>
+
+    <h3 class="mb-5">Všechny podepsané smlouvy</h3>
+    <table class="table table-hover" id="vsechny_smlouvy">
+        <thead>
+        {% comment %}  Nadpisy tabulky - řazení položek  {% endcomment %}
+        <tr>
+                <th scope="col" class="bg-secondary">
+                    <a class="link-light" href="?sort={% if sort_param == 'id' %}-id
+                                   {% else %}id{% endif %}">č.smlouvy</a>
+                </th>
+                <th scope="col" class="bg-secondary">
+                    <a class="link-light" href="?sort={% if sort_param == 'klient__prijmeni' %}-klient__prijmeni
+                                   {% else %}klient__prijmeni{% endif %}">Příjmení a jméno</a>
+                </th>
+                <th scope="col" class="bg-secondary">
+                    <a class="link-light" href="?sort={% if sort_param == 'produkt_id__id' %}-produkt_id__id
+                                   {% else %}produkt_id__id{% endif %}">Produkt</a>
+                </th>
+                <th scope="col" class="bg-secondary">
+                    <a class="link-light" href="?sort={% if sort_param == 'castka_kryti' %}-castka_kryti
+                                   {% else %}castka_kryti{% endif %}">Částka krytí (kč)</a>
+                </th>
+                <th scope="col" class="bg-secondary">
+                    <a class="link-light" href="?sort={% if sort_param == 'cena' %}-cena
+                                   {% else %}cena{% endif %}">Cena (kč/měs.)</a>
+                </th>
+                <th scope="col" class="bg-secondary">
+                    <a class="link-light" href="?sort={% if sort_param == 'datum' %}-datum
+                                   {% else %}datum{% endif %}">Datum podpisu</a>
+                </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for smlouva in smlouvy %}
+        <tr style="vertical-align: middle;">
+            <td scope="row">{{ smlouva.id }}</td>
+            <td><b>{{ smlouva.klient.prijmeni }} 
+                {{ smlouva.klient.jmeno }}</b> ({{ smlouva.klient.id }})</td>
+            <td>({{ smlouva.produkt.id }}) {{ smlouva.produkt.nazev }}</td>
+            <td>{{ smlouva.castka_kryti }}</td>
+            <td>{{ smlouva.cena }}</td>
+            <td>{{ smlouva.datum|date:"d.m.Y" }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

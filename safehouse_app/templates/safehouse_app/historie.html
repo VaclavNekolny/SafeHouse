@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Historie
+{% endblock title %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href={% static "safehouse_app/historie.css" %}>
+{% endblock styles %}
+
+{% block content %}
+<div class="container-md">
+    <div class="bg-light rounded-bottom mb-5 pb-3">
+        <h1 class="text-center pt-3">HISTORIE</h1>
+        <div class="d-flex gap-5 align-items-center justify-content-center position-relative" style="left:50px;">
+            <div class="lead fw-bold bg-light text-center">Sledované<br> události</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item  bg-light"><b>Produkt</b> : vytvoření, editace, smazání</li>
+                <li class="list-group-item  bg-light"><b>Klient</b> : vytvoření, editace, smazání</li>
+                <li class="list-group-item  bg-light"><b>Smlouva</b> : podepsání, výpověď</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3 class="mb-3">Historie všech událostí</h3>
+    <table class="table table-hover shadow" id="vsechny_smlouvy">
+        <thead>
+        <tr>
+            <th scope="col" class="small text-bg-secondary">PO.</th>
+            <th scope="col" class="small text-bg-secondary">PR.</th>
+            <th scope="col" class="small text-bg-secondary">SM.</th>
+            <th scope="col" class=" text-bg-secondary">Pojištěnec</th>
+            <th scope="col" class=" text-bg-secondary">Produkt</th>
+            <th scope="col" class=" text-bg-secondary">Akce</th>
+            <th scope="col" class=" text-bg-secondary">Detail</th>
+            <th scope="col" class=" text-bg-secondary">Datum</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for zaznam in historie %}
+            <tr
+            {% comment %} 
+            Podbarvení řádku podle typu akce 
+            {% endcomment %}
+            {% if zaznam.akce == "Vytvoření" %} class="vytvoreni"
+            {% elif zaznam.akce == "Editace" %} class="editace"
+            {% elif zaznam.akce == "Smazání" %} class="smazani"
+            {% elif zaznam.akce == "Podpis" %} class="podpis"
+            {% elif zaznam.akce == "Výpověď" %} class="vypoved"
+            {% endif %}
+                style="vertical-align: middle;">
+                    <td scope="row">{{ zaznam.klient_id|default:"-" }}</td>
+                    <td>{{ zaznam.produkt_id|default:"-" }}</td>
+                    <td>{{ zaznam.smlouva_id|default:"-" }}</td>
+                    <td>{{ zaznam.klient_str|default:"--" }}</td>
+                    <td>{{ zaznam.produkt_str|default:"--" }}</td>
+                    <td>{{ zaznam.akce|default:"--" }}</td>
+                    <td>{{ zaznam.detail_akce|default:"--" }}</td>
+                    <td>{{ zaznam.datum_cas|date:"d.m.Y" }}</td>
+                </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
