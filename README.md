@@ -4,7 +4,7 @@
 
 🎥 **[Video ukázka](https://youtu.be/OWsMLuW-vfE)**
 
-![](media/safe_house1.png)
+![](media/safe_house_1.png)
 
 
 
